@@ -1,18 +1,31 @@
 import React, { useEffect, useState, useCallback } from "react";
+
 import { supabase } from "../supabase";
+
 import PropTypes from "prop-types";
+
 import SwipeableViews from "react-swipeable-views";
+
 import { useTheme } from "@mui/material/styles";
+
 import AppBar from "@mui/material/AppBar";
+
 import Tabs from "@mui/material/Tabs";
+
 import Tab from "@mui/material/Tab";
+
 import Typography from "@mui/material/Typography";
+
 import Box from "@mui/material/Box";
 
 import CardProject from "../components/CardProject";
+
 import AOS from "aos";
+
 import "aos/dist/aos.css";
+
 import Certificate from "../components/Certificate";
+
 import { Code, Award, Boxes } from "lucide-react";
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
@@ -92,6 +105,7 @@ export default function FullWidthTabs() {
   // =========================
   // FETCH PROJECTS
   // =========================
+
   const fetchProjects = useCallback(async () => {
     const { data, error } = await supabase
       .from("projects")
@@ -112,6 +126,7 @@ export default function FullWidthTabs() {
   // =========================
   // FETCH CERTIFICATES
   // =========================
+
   const fetchCertificates = useCallback(async () => {
     const { data, error } = await supabase
       .from("certificates")
@@ -156,11 +171,11 @@ export default function FullWidthTabs() {
 
   return (
     <div
-      className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden"
+      className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-visible"
       id="Portofolio"
     >
       {/* HEADER */}
-      <div className="text-center pb-10">
+      <div className="text-center pb-1 -mt-20">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Portfolio Showcase
         </h2>
@@ -259,6 +274,7 @@ export default function FullWidthTabs() {
           {/* =========================
               PROJECTS
           ========================= */}
+
           <TabPanel
             value={value}
             index={0}
@@ -302,6 +318,7 @@ export default function FullWidthTabs() {
           {/* =========================
               CERTIFICATES
           ========================= */}
+
           <TabPanel
             value={value}
             index={1}
@@ -343,6 +360,7 @@ export default function FullWidthTabs() {
           {/* =========================
               INTERACTIVE LAB
           ========================= */}
+
           <TabPanel
             value={value}
             index={2}
@@ -352,8 +370,7 @@ export default function FullWidthTabs() {
               <button
                 type="button"
                 onClick={() => {
-                  window.location.href =
-                    "/runner-game";
+                  window.location.href = "/runner-game";
                 }}
                 className="group flex items-center justify-center bg-transparent border-0 p-0 outline-none"
                 aria-label="Open Runner Game"

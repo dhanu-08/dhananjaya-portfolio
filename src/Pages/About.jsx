@@ -216,20 +216,7 @@ const AboutPage = () => {
       // =========================
       // YEARS OF EXPERIENCE
       // =========================
-      const startDate = new Date("2021-11-06");
-      const today = new Date();
-
-      const experience =
-        today.getFullYear() -
-        startDate.getFullYear() -
-        (today <
-        new Date(
-          today.getFullYear(),
-          startDate.getMonth(),
-          startDate.getDate()
-        )
-          ? 1
-          : 0);
+      const experience = 1;
 
       setStats({
         totalProjects: projectCount || 0,
