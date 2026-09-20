@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: Sitemap: https://dhananjaya-portfolio-kappa.vercel.app/sitemap.xml

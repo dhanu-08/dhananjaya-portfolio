@@ -1,0 +1,361 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================
+   Global Styles
+================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #030014;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Remove default button/input styles */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+/* ================================
+   Selection
+================================ */
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #ffffff;
+}
+
+/* ================================
+   Scrollbar
+================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030014;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #6366f1,
+    #a855f7
+  );
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #818cf8,
+    #c084fc
+  );
+}
+
+/* ================================
+   Firefox Scrollbar
+================================ */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 #030014;
+}
+
+/* ================================
+   Prevent Image Dragging
+================================ */
+
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ================================
+   Smooth Transitions
+================================ */
+
+button,
+a {
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* ================================
+   Floating Animation
+================================ */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ================================
+   Glow Animation
+================================ */
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ================================
+   Loading Spinner
+================================ */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ================================
+   Line Clamp
+================================ */
+
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* ================================
+   Mobile
+================================ */
+
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+/* =========================================
+   LIGHT MODE
+========================================= */
+
+body.light-mode {
+  background: #f8fafc !important;
+  color: #1f2937 !important;
+}
+
+/* Main dark backgrounds */
+body.light-mode [class*="bg-[#030014]"] {
+  background-color: #f8fafc !important;
+}
+
+/* Navbar dark transparent background */
+body.light-mode [class*="bg-[#030014]/"] {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* White text becomes dark */
+body.light-mode .text-white {
+  color: #1f2937 !important;
+}
+
+/* Light purple text becomes dark */
+body.light-mode [class*="text-[#e2d3fd]"] {
+  color: #374151 !important;
+}
+
+/* Gray text */
+body.light-mode [class*="text-gray-"] {
+  color: #4b5563 !important;
+}
+
+/* White transparent backgrounds */
+body.light-mode [class*="bg-white/"] {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* White transparent borders */
+body.light-mode [class*="border-white/"] {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+/* White transparent gradients */
+body.light-mode [class*="from-white/"],
+body.light-mode [class*="to-white/"] {
+  --tw-gradient-from: rgba(255, 255, 255, 0.8) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Cards */
+body.light-mode .backdrop-blur-xl {
+  background-color: rgba(255, 255, 255, 0.72);
+}
+
+/* Inputs and text areas */
+body.light-mode input,
+body.light-mode textarea,
+body.light-mode select {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border-color: #d1d5db !important;
+}
+
+/* Placeholder text */
+body.light-mode input::placeholder,
+body.light-mode textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Buttons with white text */
+body.light-mode button.text-white {
+  color: #1f2937 !important;
+}
+/* =========================================
+   LIGHT MODE - FINAL FIXES
+========================================= */
+
+/* 1. Make gradient heading/text readable */
+body.light-mode .bg-clip-text.text-transparent {
+  background-image: none !important;
+  color: #4f46e5 !important;
+  -webkit-text-fill-color: #4f46e5 !important;
+}
+
+/* 2. Make white text readable */
+body.light-mode .text-white {
+  color: #1f2937 !important;
+}
+
+/* 3. Make Home buttons readable */
+body.light-mode button.text-white,
+body.light-mode a.text-white {
+  color: #1f2937 !important;
+}
+
+/* 4. Make Portfolio statistic cards clean white */
+body.light-mode [class*="from-white/"],
+body.light-mode [class*="to-white/"] {
+  background-image: none !important;
+  background-color: #ffffff !important;
+}
+
+/* 5. Make statistic card borders subtle */
+body.light-mode [class*="border-white/"] {
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* 6. Make statistic card text dark */
+body.light-mode [class*="from-white/"] .text-white,
+body.light-mode [class*="to-white/"] .text-white {
+  color: #1f2937 !important;
+}
+/* Make Light Mode cards more visible */
+body.light-mode .rounded-2xl {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(99, 102, 241, 0.18) !important;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.10) !important;
+}
+
+/* Upper 3 statistics cards */
+body.light-mode .rounded-2xl .text-gray-500,
+body.light-mode .rounded-2xl .text-gray-600 {
+  color: #4b5563 !important;
+}
+/* =========================================
+   PORTFOLIO TABS - LIGHT MODE
+========================================= */
+
+body.light-mode .MuiTabs-root .MuiTab-root {
+  color: #64748b !important;
+  opacity: 1 !important;
+}
+
+body.light-mode .MuiTabs-root .MuiTab-root:hover {
+  color: #4f46e5 !important;
+  background-color: rgba(99, 102, 241, 0.08) !important;
+}
+
+body.light-mode .MuiTabs-root .MuiTab-root.Mui-selected {
+  color: #4f46e5 !important;
+  background: linear-gradient(
+    135deg,
+    #ddd6fe,
+    #bfdbfe
+  ) !important;
+  box-shadow: 0 4px 15px -3px rgba(99, 102, 241, 0.15) !important;
+}
+
+body.light-mode .MuiTabs-root .MuiTab-root .lucide {
+  color: #94a3b8 !important;
+  opacity: 1 !important;
+}
+
+body.light-mode .MuiTabs-root .MuiTab-root.Mui-selected .lucide {
+  color: #8b5cf6 !important;
+  opacity: 1 !important;
+}
+
+/* Portfolio tabs outer box */
+body.light-mode .MuiAppBar-root {
+  background: rgba(255, 255, 255, 0.78) !important;
+  border-color: rgba(99, 102, 241, 0.12) !important;
+}
