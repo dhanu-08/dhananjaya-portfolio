@@ -10,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import CardProject from "../components/CardProject";
-import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Certificate from "../components/Certificate";
@@ -21,9 +20,7 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
     onClick={onClick}
     className="relative mt-4 px-4 py-2 text-slate-300 hover:text-white text-sm font-medium transition-all duration-300 group"
   >
-    <span>
-      {isShowingMore ? "Show Less" : "Show More"}
-    </span>
+    <span>{isShowingMore ? "Show Less" : "Show More"}</span>
 
     <svg
       className={`w-4 h-4 inline-block ml-2 transition-transform duration-300 ${
@@ -80,8 +77,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-const techStacks = [];
-
 export default function FullWidthTabs() {
   const theme = useTheme();
 
@@ -94,24 +89,41 @@ export default function FullWidthTabs() {
 
   const isMobile = window.innerWidth < 768;
 
+  // =========================
+  // FETCH PROJECTS
+  // =========================
   const fetchProjects = useCallback(async () => {
     const { data, error } = await supabase
       .from("projects")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (!error && data) {
+    if (error) {
+      console.error("Projects fetch error:", error);
+      return;
+    }
+
+    if (data) {
+      console.log("Projects loaded:", data);
       setProjects(data);
     }
   }, []);
 
+  // =========================
+  // FETCH CERTIFICATES
+  // =========================
   const fetchCertificates = useCallback(async () => {
     const { data, error } = await supabase
       .from("certificates")
       .select("*")
       .order("created_at", { ascending: false });
 
-    if (!error && data) {
+    if (error) {
+      console.error("Certificates fetch error:", error);
+      return;
+    }
+
+    if (data) {
       setCertificates(data);
     }
   }, []);
@@ -147,19 +159,21 @@ export default function FullWidthTabs() {
       className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden"
       id="Portofolio"
     >
+      {/* HEADER */}
       <div className="text-center pb-10">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Portfolio Showcase
         </h2>
 
         <p className="text-slate-400 max-w-2xl mx-auto">
-          Explore my projects, certifications, skills, and
-          interactive work in finance, banking, business analytics,
-          and technology.
+          Explore my projects, certifications, and interactive
+          work in finance, banking, business analytics, and
+          technology.
         </p>
       </div>
 
       <Box sx={{ width: "100%" }}>
+        {/* TABS */}
         <AppBar
           position="static"
           sx={{
@@ -242,7 +256,9 @@ export default function FullWidthTabs() {
           index={value}
           onChangeIndex={handleChangeIndex}
         >
-          {/* PROJECTS */}
+          {/* =========================
+              PROJECTS
+          ========================= */}
           <TabPanel
             value={value}
             index={0}
@@ -257,10 +273,13 @@ export default function FullWidthTabs() {
                     data-aos-duration="1000"
                   >
                     <CardProject
-                      Img={project.image}
-                      Title={project.title}
-                      Description={project.description}
-                      Link={project.link}
+                      Img={project.Img || ""}
+                      Title={project.Title || "Untitled Project"}
+                      Description={
+                        project.Description ||
+                        "No description available."
+                      }
+                      Link={project.Link || ""}
                       id={project.id}
                     />
                   </div>
@@ -272,9 +291,7 @@ export default function FullWidthTabs() {
               <div className="flex justify-center pb-10">
                 <ToggleButton
                   onClick={() =>
-                    setShowAllProjects(
-                      !showAllProjects
-                    )
+                    setShowAllProjects(!showAllProjects)
                   }
                   isShowingMore={showAllProjects}
                 />
@@ -282,7 +299,9 @@ export default function FullWidthTabs() {
             )}
           </TabPanel>
 
-          {/* CERTIFICATES */}
+          {/* =========================
+              CERTIFICATES
+          ========================= */}
           <TabPanel
             value={value}
             index={1}
@@ -293,9 +312,7 @@ export default function FullWidthTabs() {
                 {visibleCertificates.map(
                   (certificate, index) => (
                     <div
-                      key={
-                        certificate.id || index
-                      }
+                      key={certificate.id || index}
                       data-aos="fade-up"
                       data-aos-duration="1000"
                     >
@@ -317,15 +334,15 @@ export default function FullWidthTabs() {
                       !showAllCertificates
                     )
                   }
-                  isShowingMore={
-                    showAllCertificates
-                  }
+                  isShowingMore={showAllCertificates}
                 />
               </div>
             )}
           </TabPanel>
 
-          {/* SKILLS & TOOLS */}
+          {/* =========================
+              INTERACTIVE LAB
+          ========================= */}
           <TabPanel
             value={value}
             index={2}
@@ -338,16 +355,14 @@ export default function FullWidthTabs() {
                   window.location.href =
                     "/runner-game";
                 }}
-                className="group rounded- bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-400/20 hover:border-indigo-400/60 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-indigo-500/20 flex flex-col items-center justify-center"
+                className="group flex items-center justify-center bg-transparent border-0 p-0 outline-none"
+                aria-label="Open Runner Game"
               >
-
-                <div className="group-hover:scale-110 transition-transform duration-300">
-                   <img
-                   src="/Runner-game-logo.png"
-                   alt="Runner Game"
-                   className="w-32 h-32 object-contain mx-auto"
-                   />
-                   </div>
+                <img
+                  src="/runner-game-logo.png"
+                  alt="Runner Game"
+                  className="w-40 h-40 object-contain transition-transform duration-300 group-hover:scale-110"
+                />
               </button>
             </div>
           </TabPanel>
