@@ -93,16 +93,29 @@ const Navbar = () => {
     >
       {/* Theme Switch */}
   <button
-    onClick={() => setIsDarkMode(!isDarkMode)}
-    aria-label="Toggle dark and light mode"
-    className="fixed top-4 right-6 z-[60] p-2 text-[#e2d3fd] hover:text-white transition"
-  >
-    {isDarkMode ? (
-      <Sun className="w-5 h-5" />
-    ) : (
-      <Moon className="w-5 h-5" />
-    )}
-  </button>
+  onClick={() => setIsDarkMode(!isDarkMode)}
+  aria-label="Toggle dark and light mode"
+  className="
+    fixed top-4 right-16 md:right-6
+    z-[60]
+    flex items-center justify-center
+    w-11 h-11
+    rounded-full
+    border border-purple-400/30
+    bg-purple-950/60
+    backdrop-blur-md
+    text-[#e2d3fd]
+    hover:text-white
+    hover:bg-purple-900/70
+    transition-all duration-300
+  "
+>
+  {isDarkMode ? (
+    <Sun className="w-5 h-5" />
+  ) : (
+    <Moon className="w-5 h-5" />
+  )}
+</button>
       <div className="mx-auto px-[5%] sm:px-[5%] lg:px-[10%]">
         <div className="flex items-center justify-between h-16">
 
