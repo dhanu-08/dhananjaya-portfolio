@@ -376,10 +376,10 @@ export default function FullWidthTabs() {
                 aria-label="Open Runner Game"
               >
                 <img
-                  src="/runner-game-logo.png"
-                  alt="Runner Game"
-                  className="w-40 h-40 object-contain transition-transform duration-300 group-hover:scale-110"
-                />
+  src="/Runner-game-logo.png"
+  alt="Runner Game"
+  className="w-40 h-40 object-contain transition-transform duration-300 group-hover:scale-110"
+/>
               </button>
             </div>
           </TabPanel>
