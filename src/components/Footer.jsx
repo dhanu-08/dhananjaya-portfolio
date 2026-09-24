@@ -9,7 +9,7 @@ const Footer = () => {
         <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
           © {currentYear}{" "}
           <a
-            href="https://github.com/dhanu-08/dhananjaya-portfolio"
+            href="https://github.com/dhanu-08"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline"

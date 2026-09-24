@@ -82,7 +82,7 @@ const TECH_STACK = ["Financial Analysis", "Ms Excel", "BFSI", "NISM"];
 const SOCIAL_LINKS = [
   {
     icon: Github,
-    link: "https://github.com/dhanu-08/dhananjaya-portfolio",
+    link: "https://github.com/dhanu-08/dhanu-08",
     label: "GitHub Profile",
   },
   {
