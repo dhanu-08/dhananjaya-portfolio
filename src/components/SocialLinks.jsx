@@ -34,7 +34,7 @@ const socialLinks = [
     displayName: "GitHub",
     subText: "@dhanu-08",
     icon: Github,
-    url: "https://github.com/dhanu-08/dhanu-08",
+    url: "https://github.com/dhanu-08",
     color: "#ffffff",
     gradient: "from-[#333] to-[#24292e]",
   },
