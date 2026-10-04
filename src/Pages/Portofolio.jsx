@@ -175,7 +175,7 @@ export default function FullWidthTabs() {
       id="Portofolio"
     >
       {/* HEADER */}
-      <div className="text-center pb-1 -mt-20">
+      <div className="text-center pb-1 -mt-16">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Portfolio Showcase
         </h2>

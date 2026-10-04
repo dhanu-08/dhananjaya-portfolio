@@ -308,7 +308,7 @@ const AboutPage = () => {
         value: stats.totalProjects,
         label: "Total Projects",
         description:
-          "Innovative web solutions crafted",
+          "Finance & analytics projects",
         animation: "fade-up",
 
         // Projects tab
@@ -323,7 +323,7 @@ const AboutPage = () => {
         value: stats.totalCertificates,
         label: "Certificates",
         description:
-          "Professional skills validated",
+          "Professional skills & certifications",
         animation: "fade-up",
 
         // Certificates tab
@@ -338,7 +338,7 @@ const AboutPage = () => {
         value: stats.YearExperience,
         label: "Years of Experience",
         description:
-          "Continuous learning journey",
+          "Building knowledge & expertise",
         animation: "fade-up",
 
         // No onClick here

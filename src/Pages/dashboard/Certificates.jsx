@@ -42,7 +42,7 @@ const CertCard = ({ cert, onDelete }) => {
 
         <img
           src={cert.Img}
-          alt="Certificate"
+          alt={cert.title || "Certificate"}
           onLoad={() => setImgLoaded(true)}
           className={`w-full aspect-[16/11.5] object-cover group-hover:scale-105 transition-transform duration-500 ${
             imgLoaded ? "block" : "hidden"
@@ -61,14 +61,39 @@ const CertCard = ({ cert, onDelete }) => {
           </div>
         )}
       </div>
+
+      {/* Certificate Information */}
+      <div className="pt-3 px-1">
+        <h3 className="text-sm font-semibold text-white line-clamp-2">
+          {cert.title || "Certificate"}
+        </h3>
+
+        {cert.issuer && (
+          <p className="text-xs text-gray-400 mt-1 line-clamp-1">
+            {cert.issuer}
+          </p>
+        )}
+
+        {cert.year && (
+          <p className="text-xs text-indigo-400 mt-1">
+            {cert.year}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
 
 export default function Certificates() {
   const [certs, setCerts] = useState([]);
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+
+  const [title, setTitle] = useState("");
+  const [issuer, setIssuer] = useState("");
+  const [year, setYear] = useState("");
+
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -76,10 +101,14 @@ export default function Certificates() {
   const fetchCerts = async () => {
     setLoading(true);
 
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("certificates")
       .select("*")
       .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Certificate fetch error:", error);
+    }
 
     setCerts(data || []);
     setLoading(false);
@@ -96,39 +125,92 @@ export default function Certificates() {
     setPreview(URL.createObjectURL(f));
   };
 
+  const clearForm = () => {
+    setFile(null);
+    setPreview(null);
+    setTitle("");
+    setIssuer("");
+    setYear("");
+  };
+
   const uploadImage = async () => {
-    if (!file) return;
+    if (!file) {
+      alert("Please select a certificate image.");
+      return;
+    }
+
+    if (!title.trim()) {
+      alert("Please enter the certificate name.");
+      return;
+    }
+
+    if (!issuer.trim()) {
+      alert("Please enter the issuing organization.");
+      return;
+    }
+
+    if (!year) {
+      alert("Please enter the certificate year.");
+      return;
+    }
 
     setUploading(true);
 
-    const fileName = `cert-${Date.now()}-${file.name}`;
+    try {
+      const fileName = `cert-${Date.now()}-${file.name}`;
 
-    await supabase.storage
-      .from("certificate-images")
-      .upload(fileName, file);
+      const { error: uploadError } = await supabase.storage
+        .from("certificate-images")
+        .upload(fileName, file);
 
-    const { data } = supabase.storage
-      .from("certificate-images")
-      .getPublicUrl(fileName);
+      if (uploadError) {
+        console.error("Image upload error:", uploadError);
+        alert("Image upload failed.");
+        return;
+      }
 
-    await supabase
-      .from("certificates")
-      .insert({ Img: data.publicUrl });
+      const { data: publicData } = supabase.storage
+        .from("certificate-images")
+        .getPublicUrl(fileName);
 
-    setFile(null);
-    setPreview(null);
-    setUploading(false);
+      const { error: insertError } = await supabase
+        .from("certificates")
+        .insert({
+          Img: publicData.publicUrl,
+          title: title.trim(),
+          issuer: issuer.trim(),
+          year: Number(year),
+        });
 
-    fetchCerts();
+      if (insertError) {
+        console.error("Certificate insert error:", insertError);
+        alert("Certificate information could not be saved.");
+        return;
+      }
+
+      clearForm();
+      await fetchCerts();
+    } catch (error) {
+      console.error("Unexpected certificate error:", error);
+      alert("Something went wrong while uploading.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   const deleteCert = async (id) => {
     if (!confirm("Delete this certificate?")) return;
 
-    await supabase
+    const { error } = await supabase
       .from("certificates")
       .delete()
       .eq("id", id);
+
+    if (error) {
+      console.error("Delete certificate error:", error);
+      alert("Could not delete certificate.");
+      return;
+    }
 
     fetchCerts();
   };
@@ -160,12 +242,60 @@ export default function Certificates() {
 
       {/* Upload Card */}
       <Card>
-        <div className="p-5 sm:p-6 space-y-4">
+        <div className="p-5 sm:p-6 space-y-5">
           <h2 className="text-sm font-semibold text-white flex items-center gap-2">
             <Plus className="w-4 h-4 text-indigo-400" />
             Upload Certificate
           </h2>
 
+          {/* Certificate Details */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-400 mb-1.5">
+                Certificate Name
+              </label>
+
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="e.g. Bloomberg Finance Fundamentals"
+                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder:text-gray-600 outline-none focus:border-indigo-500/50 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1.5">
+                Issuing Organization
+              </label>
+
+              <input
+                type="text"
+                value={issuer}
+                onChange={(e) => setIssuer(e.target.value)}
+                placeholder="e.g. Bloomberg for Education"
+                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder:text-gray-600 outline-none focus:border-indigo-500/50 transition-colors"
+              />
+            </div>
+
+            <div className="sm:w-40">
+              <label className="block text-xs text-gray-400 mb-1.5">
+                Year
+              </label>
+
+              <input
+                type="number"
+                min="2000"
+                max="2100"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                placeholder="2026"
+                className="w-full px-3 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder:text-gray-600 outline-none focus:border-indigo-500/50 transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* Image Upload */}
           <label
             onDragOver={(e) => {
               e.preventDefault();
@@ -213,6 +343,7 @@ export default function Certificates() {
             />
           </label>
 
+          {/* Selected File */}
           {file && (
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <p className="text-xs text-gray-400 truncate flex-1">
@@ -221,10 +352,7 @@ export default function Certificates() {
 
               <div className="flex gap-2 shrink-0">
                 <button
-                  onClick={() => {
-                    setFile(null);
-                    setPreview(null);
-                  }}
+                  onClick={clearForm}
                   className="px-3 py-1.5 rounded-xl border border-white/10 text-gray-500 hover:text-white text-xs transition-colors"
                 >
                   Clear
