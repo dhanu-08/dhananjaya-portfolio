@@ -25,6 +25,8 @@ const ContactPage = () => {
   useEffect(() => {
     AOS.init({
       once: false,
+      duration: 800,
+      easing: "ease-out-cubic",
     });
   }, []);
 
@@ -116,55 +118,74 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="px-[5%] sm:px-[5%] lg:px-[10%]">
-      {/* HEADER */}
-      <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
+    <section
+      id="Contact"
+      className="relative w-full px-[5%] lg:px-[8%] xl:px-[10%] pt-10 pb-20"
+    >
+      {/* ================= HEADER ================= */}
+      <div className="text-center max-w-3xl mx-auto mb-12 md:mb-14">
         <h2
           data-aos="fade-down"
-          data-aos-duration="1000"
-          className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]"
+          data-aos-duration="900"
+          className="inline-block text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]"
         >
           Contact Me
         </h2>
 
         <p
           data-aos="fade-up"
-          data-aos-duration="1100"
-          className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2"
+          data-aos-duration="1000"
+          className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-3 leading-relaxed"
         >
-          Have a question or want to connect? Send me a message and
-          I'll get back to you soon.
+          Have a question, opportunity, or simply want to connect?
+          Feel free to send me a message. I'd love to hear from you.
         </p>
       </div>
 
-      {/* CONTACT SECTION */}
-      <div
-        className="h-auto py-10 flex items-center justify-center 2xl:pr-[3.1%] lg:pr-[3.8%] md:px-0"
-        id="Contact"
-      >
-        <div className="container px-[1%] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-[45%_55%] 2xl:grid-cols-[35%_65%] gap-12">
+      {/* ================= MAIN GRID ================= */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10 items-start">
 
+        {/* ================= LEFT COLUMN ================= */}
+        <div
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          className="space-y-7"
+        >
           {/* CONTACT FORM */}
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-5 py-10 sm:p-10 transform transition-all duration-500 hover:shadow-[#6366f1]/10">
+          <div className="relative overflow-hidden bg-white/[0.045] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 md:p-9 shadow-2xl transition-all duration-500 hover:border-indigo-500/20 hover:shadow-indigo-500/5">
 
-            <div className="flex justify-between items-start mb-8">
+            {/* Decorative glow */}
+            <div className="absolute -top-24 -right-24 w-52 h-52 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative flex items-start justify-between gap-4 mb-8">
               <div>
-                <h2 className="text-4xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-                  Let's Connect
-                </h2>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-8 h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#a855f7]" />
 
-                <p className="text-gray-400">
+                  <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+                    Get In Touch
+                  </span>
+                </div>
+
+                <h3 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
+                  Let's Connect
+                </h3>
+
+                <p className="text-gray-400 text-sm md:text-base mt-3 leading-relaxed max-w-xl">
                   Have something to discuss? Send me a message and
-                  let's connect.
+                  let's start a conversation.
                 </p>
               </div>
 
-              <Share2 className="w-10 h-10 text-[#6366f1] opacity-50" />
+              <div className="hidden sm:flex w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 items-center justify-center shrink-0">
+                <Share2 className="w-6 h-6 text-indigo-400" />
+              </div>
             </div>
 
+            {/* FORM */}
             <form
               onSubmit={handleSubmit}
-              className="space-y-6"
+              className="relative space-y-5"
             >
               {/* NAME */}
               <div
@@ -172,7 +193,7 @@ const ContactPage = () => {
                 data-aos-delay="100"
                 className="relative group"
               >
-                <User className="absolute left-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-[#6366f1] transition-colors" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-indigo-400 transition-colors duration-300 z-10" />
 
                 <input
                   type="text"
@@ -181,7 +202,7 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 disabled:opacity-50"
+                  className="w-full h-14 pl-12 pr-4 bg-white/[0.045] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 hover:border-white/20 disabled:opacity-50"
                   required
                 />
               </div>
@@ -189,10 +210,10 @@ const ContactPage = () => {
               {/* EMAIL */}
               <div
                 data-aos="fade-up"
-                data-aos-delay="200"
+                data-aos-delay="150"
                 className="relative group"
               >
-                <Mail className="absolute left-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-[#6366f1] transition-colors" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-indigo-400 transition-colors duration-300 z-10" />
 
                 <input
                   type="email"
@@ -201,7 +222,7 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 disabled:opacity-50"
+                  className="w-full h-14 pl-12 pr-4 bg-white/[0.045] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 hover:border-white/20 disabled:opacity-50"
                   required
                 />
               </div>
@@ -209,10 +230,10 @@ const ContactPage = () => {
               {/* MESSAGE */}
               <div
                 data-aos="fade-up"
-                data-aos-delay="300"
+                data-aos-delay="200"
                 className="relative group"
               >
-                <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-[#6366f1] transition-colors" />
+                <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-gray-500 group-focus-within:text-indigo-400 transition-colors duration-300 z-10" />
 
                 <textarea
                   name="message"
@@ -220,7 +241,7 @@ const ContactPage = () => {
                   value={formData.message}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full resize-none p-4 pl-12 bg-white/10 rounded-xl border border-white/20 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-[#6366f1]/30 transition-all duration-300 hover:border-[#6366f1]/30 h-[9.9rem] disabled:opacity-50"
+                  className="w-full min-h-[175px] resize-none p-4 pl-12 bg-white/[0.045] border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/10 transition-all duration-300 hover:border-white/20 disabled:opacity-50"
                   required
                 />
               </div>
@@ -228,31 +249,63 @@ const ContactPage = () => {
               {/* SEND BUTTON */}
               <button
                 data-aos="fade-up"
-                data-aos-delay="400"
+                data-aos-delay="250"
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#6366f1]/20 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group w-full h-14 bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white rounded-xl font-semibold transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-indigo-500/20 active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
 
-                {isSubmitting ? "Sending..." : "Send Message"}
+                <span>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </span>
               </button>
             </form>
-
-            {/* SOCIAL LINKS */}
-            <div className="mt-10 pt-6 border-t border-white/10 flex justify-center">
-              <SocialLinks />
-            </div>
           </div>
 
-          {/* COMMENTS */}
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl p-3 py-3 md:p-10 md:py-8 shadow-2xl transform transition-all duration-500 hover:shadow-[#6366f1]/10">
+          {/* SOCIAL LINKS */}
+          <div
+            data-aos="fade-up"
+            data-aos-duration="900"
+          >
+            <SocialLinks />
+          </div>
+        </div>
+
+        {/* ================= RIGHT COLUMN ================= */}
+        <div
+          data-aos="fade-left"
+          data-aos-duration="1000"
+          className="relative overflow-hidden bg-white/[0.045] backdrop-blur-xl border border-white/10 rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl transition-all duration-500 hover:border-indigo-500/20 hover:shadow-indigo-500/5"
+        >
+          {/* Decorative glow */}
+          <div className="absolute -bottom-24 -right-24 w-56 h-56 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative mb-6">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-8 h-1 rounded-full bg-gradient-to-r from-[#6366f1] to-[#a855f7]" />
+
+              <span className="text-xs uppercase tracking-[0.2em] text-indigo-400 font-semibold">
+                Community
+              </span>
+            </div>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-white">
+              Leave a Message
+            </h3>
+
+            <p className="text-gray-400 text-sm md:text-base mt-2 leading-relaxed">
+              Share your thoughts, feedback, or a message for others
+              visiting my portfolio.
+            </p>
+          </div>
+
+          <div className="relative">
             <Komentar />
           </div>
-
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

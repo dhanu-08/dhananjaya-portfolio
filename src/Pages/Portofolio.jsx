@@ -335,6 +335,9 @@ export default function FullWidthTabs() {
                     >
                       <Certificate
                         ImgSertif={certificate.Img}
+                        title={certificate.title}
+                          issuer={certificate.issuer}
+                          year={certificate.year}
                       />
                     </div>
                   )
