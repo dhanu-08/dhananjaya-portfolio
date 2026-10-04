@@ -359,3 +359,11 @@ body.light-mode .MuiAppBar-root {
   background: rgba(255, 255, 255, 0.78) !important;
   border-color: rgba(99, 102, 241, 0.12) !important;
 }
+/* GitHub icon - visible in both themes */
+a[href="https://github.com/dhanu-08"] svg {
+  color: #ffffff !important;
+}
+
+body.light-mode a[href="https://github.com/dhanu-08"] svg {
+  color: #24292e !important;
+}
