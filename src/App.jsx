@@ -126,11 +126,6 @@ function App() {
           </div>
 
           <div className="nav-right-actions">
-            <div className="nav-status-chip">
-              <span className="pulse-dot"></span>
-              <span>Available for BFSI Roles</span>
-            </div>
-
             <a href="#contact" className="nav-cta-btn">
               <span>Let's Talk</span>
               <span>→</span>
