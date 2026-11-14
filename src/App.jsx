@@ -120,8 +120,8 @@ function App() {
             <a href="#about" className="nav-link">About</a>
             <a href="#journey" className="nav-link">Journey</a>
             <a href="#skills" className="nav-link">Capabilities</a>
-            <a href="#projects" className="nav-link">Work</a>
-            <a href="#certifications" className="nav-link">Credentials</a>
+            <a href="#projects" className="nav-link">Projects</a>
+            <a href="#certifications" className="nav-link">Certifications</a>
             <a href="#resume" className="nav-link">Resume</a>
           </div>
 
@@ -146,8 +146,8 @@ function App() {
             <a href="#about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
             <a href="#journey" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Journey</a>
             <a href="#skills" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Capabilities</a>
-            <a href="#projects" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Work</a>
-            <a href="#certifications" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Credentials</a>
+            <a href="#projects" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Projects</a>
+            <a href="#certifications" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Certifications</a>
             <a href="#resume" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Resume</a>
             <a href="#contact" className="nav-cta-btn" onClick={() => setMobileMenuOpen(false)} style={{ justifyContent: "center", width: "100%" }}>
               <span>Let's Talk →</span>
@@ -188,7 +188,7 @@ function App() {
 
             <div className="hero-button-row fragment-reveal stagger-3">
               <a href="#projects" className="btn-fragment-primary">
-                <span>Explore Selected Work</span>
+                <span>Explore Projects</span>
                 <span>→</span>
               </a>
 
@@ -459,13 +459,13 @@ function App() {
           </div>
         </section>
 
-        {/* ================= PROJECTS: EDITORIAL CASE STUDY CARDS (WHERE CARDS SHINE!) ================= */}
+        {/* ================= PROJECTS ================= */}
         <section id="projects" className="section-wrapper">
           <div className="fragment-reveal">
-            <span className="section-meta-tag">[ 04 / RECENT WORK ]</span>
-            <h2 className="section-title">Selected Analytical Case Studies</h2>
+            <span className="section-meta-tag">[ 04 / PROJECTS ]</span>
+            <h2 className="section-title">Academic & Financial Projects</h2>
             <p className="section-desc">
-              Practical academic projects delivering quantitative modeling, data queries, and strategic business evaluations.
+              Practical valuation modeling, business analytics, SQL database architectures, and strategic market research.
             </p>
           </div>
 
@@ -474,7 +474,7 @@ function App() {
               className={`filter-pill ${activeProjectFilter === "all" ? "active" : ""}`}
               onClick={() => setActiveProjectFilter("all")}
             >
-              All Work
+              All Projects
             </button>
             <button
               className={`filter-pill ${activeProjectFilter === "finance" ? "active" : ""}`}
@@ -531,8 +531,8 @@ function App() {
         {/* ================= CERTIFICATIONS & CREDENTIALS ================= */}
         <section id="certifications" className="section-wrapper">
           <div className="fragment-reveal">
-            <span className="section-meta-tag">[ 05 / VERIFIED CREDENTIALS ]</span>
-            <h2 className="section-title">Accreditations & Industry Certifications</h2>
+            <span className="section-meta-tag">[ 05 / CERTIFICATIONS ]</span>
+            <h2 className="section-title">Certifications & Accreditations</h2>
             <p className="section-desc">
               Formal qualifications validated by recognized financial and regulatory bodies.
             </p>
