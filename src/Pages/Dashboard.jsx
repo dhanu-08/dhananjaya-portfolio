@@ -20,6 +20,7 @@ import {
   LogOut,
   LayoutDashboard,
   Menu,
+  Globe,
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -118,6 +119,15 @@ export default function Dashboard() {
           );
         })}
       </nav>
+
+      {/* View Portfolio */}
+      <Link
+        to="/"
+        className="shrink-0 flex items-center gap-3 px-3 py-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all duration-200 text-sm"
+      >
+        <Globe className="w-4 h-4 shrink-0 text-indigo-400" />
+        View Portfolio ↗
+      </Link>
 
       {/* Logout */}
       <button

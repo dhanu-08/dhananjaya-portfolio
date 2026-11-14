@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        var repo = "/dhananjaya-portfolio";
+        var subpath = path.startsWith(repo) ? path.substring(repo.length) : path;
+        var target = (path.startsWith(repo) ? repo : "") + "/#" + (subpath.startsWith("/") ? subpath : "/" + subpath);
+        window.location.replace(target + window.location.search);
+      })();
+    </script>
+  </head>
+  <body style="background: #000; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh;">
+    <p>Redirecting to Dhananjaya Meher Portfolio...</p>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Mail,
   Lock,
@@ -183,6 +183,15 @@ export default function Login() {
                   )}
                 </div>
               </button>
+
+              <div className="text-center mt-5">
+                <Link
+                  to="/"
+                  className="text-xs text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                  ← Return to Portfolio
+                </Link>
+              </div>
             </form>
           </div>
         </div>

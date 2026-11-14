@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dhananjaya Meher — MBA Finance & BFSI Portfolio</title>
     
@@ -12,6 +12,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400,300&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    
+    <!-- SPA Route Handler for GitHub Pages & Vercel -->
+    <script>
+      (function() {
+        var path = window.location.pathname;
+        if (path.endsWith('/login') || path.endsWith('/login/')) {
+          var base = path.replace(/\/login\/?$/, '') || '';
+          window.location.replace(base + '/#/login' + window.location.search);
+        } else if (path.includes('/dashboard')) {
+          var base = path.substring(0, path.indexOf('/dashboard'));
+          var sub = path.substring(path.indexOf('/dashboard'));
+          window.location.replace(base + '/#' + sub + window.location.search);
+        }
+      })();
+    </script>
     
     <!-- Spline 3D Viewer Script (Same as Fragment Studio) -->
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.72/build/spline-viewer.js"></script>
