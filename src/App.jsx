@@ -161,7 +161,7 @@ function App() {
         )}
       </header>
 
-      {/* ================= HERO SECTION (WITH 3D SPLINE SCENE) ================= */}
+      {/* ================= HERO SECTION (CLEAN FRAGMENT EDITORIAL + 3D) ================= */}
       <main id="home">
         <section className="hero-wrapper" ref={heroRef}>
           {/* Spline 3D Viewer matching Fragment Studio */}
@@ -202,71 +202,32 @@ function App() {
                 <span>↗</span>
               </a>
             </div>
-
-            {/* HERO FLOATING CARDS (Fragment Card Style) */}
-            <div className="hero-cards-grid fragment-reveal stagger-4">
-              <div className="hero-card">
-                <div className="card-mono-header">
-                  <span>[ 01 · EDUCATION ]</span>
-                  <span>ACTIVE</span>
-                </div>
-                <h4>MBA – Finance</h4>
-                <p>IBS Business School, Bengaluru (2026–2028)</p>
-              </div>
-
-              <div className="hero-card">
-                <div className="card-mono-header">
-                  <span>[ 02 · FOUNDATION ]</span>
-                  <span>SCIENCE</span>
-                </div>
-                <h4>B.Sc. Chemistry (Hons)</h4>
-                <p>Rajendra University · Rigorous Analytical Mindset</p>
-              </div>
-
-              <div className="hero-card">
-                <div className="card-mono-header">
-                  <span>[ 03 · SPECIALIZATION ]</span>
-                  <span>BFSI</span>
-                </div>
-                <h4>Banking & Valuation</h4>
-                <p>CAPM, Financial Modeling, KYC/AML & Operations</p>
-              </div>
-
-              <div className="hero-card">
-                <div className="card-mono-header">
-                  <span>[ 04 · LOCATION ]</span>
-                  <span>{currentTime || "IST"}</span>
-                </div>
-                <h4>Bengaluru, India</h4>
-                <p>Open for Summer Internships & BFSI Opportunities</p>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* ================= STATS / METRICS BANNER CARDS ================= */}
+        {/* ================= STATS / METRICS EDITORIAL STRIP ================= */}
         <section className="stats-section">
-          <div className="stats-grid fragment-reveal">
-            <div className="stat-card">
+          <div className="stats-editorial-strip fragment-reveal">
+            <div className="stat-col">
               <div className="stat-value">04+</div>
               <div className="stat-label">Core Analytical Projects</div>
             </div>
-            <div className="stat-card">
+            <div className="stat-col">
               <div className="stat-value">04</div>
               <div className="stat-label">Industry Certifications</div>
             </div>
-            <div className="stat-card">
+            <div className="stat-col">
               <div className="stat-value">83%</div>
               <div className="stat-label">Grade A Distinction</div>
             </div>
-            <div className="stat-card">
+            <div className="stat-col">
               <div className="stat-value">100%</div>
-              <div className="stat-label">Commitment to Precision</div>
+              <div className="stat-label">Quantitative Rigor</div>
             </div>
           </div>
         </section>
 
-        {/* ================= ABOUT SECTION: BENTO CARD GRID ================= */}
+        {/* ================= ABOUT SECTION: EDITORIAL LAYOUT ================= */}
         <section id="about" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 01 / BACKGROUND & PHILOSOPHY ]</span>
@@ -276,86 +237,73 @@ function App() {
             </p>
           </div>
 
-          <div className="about-bento-grid fragment-reveal stagger-1">
-            <div className="about-bento-top-row">
-              <div className="bento-profile-card">
-                <div className="profile-img-wrapper">
-                  <img
-                    src="/profile.png"
-                    alt="Dhananjaya Meher"
-                    className="profile-img"
-                  />
-                  <div className="profile-status-badge">
-                    <span className="pulse-dot"></span>
-                    <span>Verified Profile</span>
-                  </div>
-                </div>
-
-                <div className="profile-info-footer">
-                  <h4>Dhananjaya Meher</h4>
-                  <p>MBA Finance · IBS Bengaluru</p>
-                  <div className="profile-location-chip">
-                    <span>📍 Bengaluru, India</span>
-                  </div>
+          <div className="about-editorial-grid fragment-reveal stagger-1">
+            <div className="about-profile-card">
+              <div className="profile-img-wrapper">
+                <img
+                  src="/profile.png"
+                  alt="Dhananjaya Meher"
+                  className="profile-img"
+                />
+                <div className="profile-status-badge">
+                  <span className="pulse-dot"></span>
+                  <span>Verified Profile</span>
                 </div>
               </div>
 
-              <div className="bento-card bento-main-story">
-                <div>
-                  <span className="bento-card-badge">[ THE ACADEMIC EVOLUTION ]</span>
-                  <h3>From Scientific Method to Capital Markets</h3>
-                  <p>
-                    My academic journey began with a rigorous B.Sc. in Chemistry (Honours) from Rajendra University, Balangir. Laboratory science trained me in disciplined observation, quantitative hypothesis testing, and error minimization.
-                  </p>
-                  <p>
-                    Today, I channel that exact analytical discipline into my MBA in Finance at IBS Business School, Bengaluru. Rather than viewing finance as abstract equations, I approach valuation, stock returns, and credit risk as systematic puzzles that require structured quantitative models.
-                  </p>
-                  <p>
-                    My goal is clear: to contribute meaningfully across the BFSI ecosystem, commercial banking, equity research, and corporate financial management.
-                  </p>
-                </div>
-
-                <div className="hero-button-row" style={{ marginBottom: 0, marginTop: 24 }}>
-                  <a href="#journey" className="btn-fragment-secondary">
-                    <span>View Timeline Progression</span>
-                    <span>→</span>
-                  </a>
+              <div className="profile-info-footer">
+                <h4>Dhananjaya Meher</h4>
+                <p>MBA Finance · IBS Bengaluru</p>
+                <div className="profile-location-chip">
+                  <span>📍 Bengaluru, India</span>
                 </div>
               </div>
             </div>
 
-            <div className="about-bento-bottom-row">
-              <div className="bento-mini-card">
-                <div className="mini-card-top">
-                  <span>01</span>
-                  <span>FINANCIAL MANAGEMENT</span>
-                </div>
-                <h4>Valuation & Return Modeling</h4>
-                <p>CAPM calculations, beta analysis, covariance, and investment assessment for equity instruments.</p>
-              </div>
+            <div className="about-narrative-col">
+              <h3 className="about-headline-lead">
+                From Scientific Method to Capital Markets
+              </h3>
+              <p className="about-body-p">
+                My academic journey began with a rigorous B.Sc. in Chemistry (Honours) from Rajendra University, Balangir. Laboratory science trained me in disciplined observation, quantitative hypothesis testing, and error minimization.
+              </p>
+              <p className="about-body-p">
+                Today, I channel that exact analytical discipline into my MBA in Finance at IBS Business School, Bengaluru. Rather than viewing finance as abstract equations, I approach valuation, stock returns, and credit risk as systematic puzzles that require structured quantitative models.
+              </p>
+              <p className="about-body-p">
+                My goal is clear: to contribute meaningfully across the BFSI ecosystem, commercial banking, equity research, and corporate financial management.
+              </p>
 
-              <div className="bento-mini-card">
-                <div className="mini-card-top">
-                  <span>02</span>
-                  <span>BFSI ECOSYSTEM</span>
+              <div className="about-pillars-stream">
+                <div className="about-pillar-item">
+                  <span className="pillar-index">01</span>
+                  <div>
+                    <h4>Valuation & Return Modeling</h4>
+                    <p>CAPM calculations, beta analysis, covariance, and investment assessment for equity instruments.</p>
+                  </div>
                 </div>
-                <h4>Banking Regulations & KYC/AML</h4>
-                <p>Understanding regulatory oversight, compliance safeguards, retail and commercial banking operations.</p>
-              </div>
 
-              <div className="bento-mini-card">
-                <div className="mini-card-top">
-                  <span>03</span>
-                  <span>DECISION TOOLS</span>
+                <div className="about-pillar-item">
+                  <span className="pillar-index">02</span>
+                  <div>
+                    <h4>BFSI Ecosystem & Compliance</h4>
+                    <p>Understanding regulatory oversight, KYC/AML compliance safeguards, retail and commercial banking operations.</p>
+                  </div>
                 </div>
-                <h4>Excel & SQL Quantitative Tooling</h4>
-                <p>Constructing financial spreadsheets, pivot reporting, relational SQL databases, and executive reporting.</p>
+
+                <div className="about-pillar-item">
+                  <span className="pillar-index">03</span>
+                  <div>
+                    <h4>Excel & SQL Decision Tooling</h4>
+                    <p>Constructing financial spreadsheets, pivot reporting, relational SQL database queries, and executive dashboards.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ================= JOURNEY / EDUCATION CARDS ================= */}
+        {/* ================= JOURNEY / EDUCATION: CLEAN TIMELINE STREAM ================= */}
         <section id="journey" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 02 / ACADEMIC PROGRESSION ]</span>
@@ -365,58 +313,66 @@ function App() {
             </p>
           </div>
 
-          <div className="journey-cards-grid fragment-reveal stagger-1">
-            <div className="journey-card">
-              <div className="journey-card-header">
-                <span className="journey-year-tag">2026 – 2028</span>
+          <div className="journey-stream fragment-reveal stagger-1">
+            <div className="journey-stream-row">
+              <div className="journey-year-tag">2026 – 2028</div>
+              <div className="journey-content">
+                <h3>MBA – Finance</h3>
+                <h4>IBS Business School, Bengaluru</h4>
+                <p>
+                  Postgraduate program emphasizing corporate finance, investment analysis, BFSI services, capital markets, and data-driven financial decision-making.
+                </p>
+              </div>
+              <div>
                 <span className="journey-status-pill">● CURRENTLY PURSUING</span>
               </div>
-              <h3>MBA – Finance</h3>
-              <h4>IBS Business School, Bengaluru</h4>
-              <p>
-                Postgraduate program emphasizing corporate finance, investment analysis, BFSI services, capital markets, and data-driven financial decision-making.
-              </p>
             </div>
 
-            <div className="journey-card">
-              <div className="journey-card-header">
-                <span className="journey-year-tag">UNDERGRADUATE</span>
+            <div className="journey-stream-row">
+              <div className="journey-year-tag">UNDERGRADUATE</div>
+              <div className="journey-content">
+                <h3>B.Sc. Chemistry (Honours)</h3>
+                <h4>Rajendra University, Balangir</h4>
+                <p>
+                  Undergraduate degree cultivating deep analytical reasoning, laboratory precision, scientific data analysis, and mathematical problem-solving.
+                </p>
+              </div>
+              <div>
                 <span className="journey-status-pill" style={{ color: "var(--text-platinum)", borderColor: "var(--border-hairline)", background: "rgba(255,255,255,0.04)" }}>COMPLETED</span>
               </div>
-              <h3>B.Sc. Chemistry (Honours)</h3>
-              <h4>Rajendra University, Balangir</h4>
-              <p>
-                Undergraduate degree cultivating deep analytical reasoning, laboratory precision, scientific data analysis, and mathematical problem-solving.
-              </p>
             </div>
 
-            <div className="journey-card">
-              <div className="journey-card-header">
-                <span className="journey-year-tag">SENIOR SECONDARY</span>
+            <div className="journey-stream-row">
+              <div className="journey-year-tag">SENIOR SECONDARY</div>
+              <div className="journey-content">
+                <h3>Class XII (Senior Secondary)</h3>
+                <h4>Central Board of Secondary Education (CBSE)</h4>
+                <p>
+                  Focused on physics, chemistry, mathematics, and analytical sciences establishing a solid academic baseline.
+                </p>
+              </div>
+              <div>
                 <span className="journey-status-pill" style={{ color: "var(--text-platinum)", borderColor: "var(--border-hairline)", background: "rgba(255,255,255,0.04)" }}>COMPLETED</span>
               </div>
-              <h3>Class XII (Senior Secondary)</h3>
-              <h4>Central Board of Secondary Education (CBSE)</h4>
-              <p>
-                Focused on physics, chemistry, mathematics, and analytical sciences establishing a solid academic baseline.
-              </p>
             </div>
 
-            <div className="journey-card">
-              <div className="journey-card-header">
-                <span className="journey-year-tag">SECONDARY</span>
+            <div className="journey-stream-row">
+              <div className="journey-year-tag">SECONDARY</div>
+              <div className="journey-content">
+                <h3>Class X (Secondary Education)</h3>
+                <h4>Indian Certificate of Secondary Education (ICSE)</h4>
+                <p>
+                  Comprehensive foundational curriculum emphasizing academic rigor, language proficiency, and quantitative reasoning.
+                </p>
+              </div>
+              <div>
                 <span className="journey-status-pill" style={{ color: "var(--text-platinum)", borderColor: "var(--border-hairline)", background: "rgba(255,255,255,0.04)" }}>COMPLETED</span>
               </div>
-              <h3>Class X (Secondary Education)</h3>
-              <h4>Indian Certificate of Secondary Education (ICSE)</h4>
-              <p>
-                Comprehensive foundational curriculum emphasizing academic rigor, language proficiency, and quantitative reasoning.
-              </p>
             </div>
           </div>
         </section>
 
-        {/* ================= SKILLS: FRAGMENT CAPABILITY CARDS ================= */}
+        {/* ================= SKILLS: FRAGMENT NUMBERED CAPABILITY ROWS ================= */}
         <section id="skills" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 03 / WHAT I DO ]</span>
@@ -426,89 +382,89 @@ function App() {
             </p>
           </div>
 
-          <div className="skills-cards-grid fragment-reveal stagger-1">
-            <div className="skill-capability-card">
-              <div>
-                <div className="skill-card-top">
-                  <span className="skill-number">01</span>
-                  <span className="skill-category-tag">VALUATION & MARKETS</span>
-                </div>
+          <div className="skills-rows-list fragment-reveal stagger-1">
+            <div className="skill-row-item">
+              <span className="skill-row-num">01</span>
+              <div className="skill-row-left">
                 <h3>Financial Analysis</h3>
+                <span className="skill-row-category">VALUATION & MARKETS</span>
+              </div>
+              <div className="skill-row-right">
                 <p>
                   Execution of financial management techniques, Capital Asset Pricing Model (CAPM), beta regression, stock return covariance, and investment risk assessment.
                 </p>
-              </div>
-              <div className="skill-chips-row">
-                <span className="skill-chip">Financial Management</span>
-                <span className="skill-chip">CAPM</span>
-                <span className="skill-chip">Beta Analysis</span>
-                <span className="skill-chip">Stock Valuation</span>
-                <span className="skill-chip">Risk Assessment</span>
+                <div className="skill-chips-row">
+                  <span className="skill-chip">Financial Management</span>
+                  <span className="skill-chip">CAPM</span>
+                  <span className="skill-chip">Beta Analysis</span>
+                  <span className="skill-chip">Stock Valuation</span>
+                  <span className="skill-chip">Risk Assessment</span>
+                </div>
               </div>
             </div>
 
-            <div className="skill-capability-card">
-              <div>
-                <div className="skill-card-top">
-                  <span className="skill-number">02</span>
-                  <span className="skill-category-tag">QUANTITATIVE DATA</span>
-                </div>
+            <div className="skill-row-item">
+              <span className="skill-row-num">02</span>
+              <div className="skill-row-left">
                 <h3>Excel & Data Analytics</h3>
+                <span className="skill-row-category">QUANTITATIVE DATA</span>
+              </div>
+              <div className="skill-row-right">
                 <p>
                   End-to-end spreadsheet modeling, complex nested formulas, pivot tables, summary aggregations, and business intelligence dashboards.
                 </p>
-              </div>
-              <div className="skill-chips-row">
-                <span className="skill-chip">Advanced MS Excel</span>
-                <span className="skill-chip">Pivot Tables</span>
-                <span className="skill-chip">Dashboards</span>
-                <span className="skill-chip">Statistical Analysis</span>
-                <span className="skill-chip">SQL</span>
+                <div className="skill-chips-row">
+                  <span className="skill-chip">Advanced MS Excel</span>
+                  <span className="skill-chip">Pivot Tables</span>
+                  <span className="skill-chip">Dashboards</span>
+                  <span className="skill-chip">Statistical Analysis</span>
+                  <span className="skill-chip">SQL</span>
+                </div>
               </div>
             </div>
 
-            <div className="skill-capability-card">
-              <div>
-                <div className="skill-card-top">
-                  <span className="skill-number">03</span>
-                  <span className="skill-category-tag">REGULATORY & OPERATIONS</span>
-                </div>
-                <h3>Banking & BFSI Knowledge</h3>
+            <div className="skill-row-item">
+              <span className="skill-row-num">03</span>
+              <div className="skill-row-left">
+                <h3>Banking Knowledge</h3>
+                <span className="skill-row-category">REGULATORY & OPERATIONS</span>
+              </div>
+              <div className="skill-row-right">
                 <p>
                   Understanding core banking operations, customer due diligence, Anti-Money Laundering (AML) standards, KYC compliance, and credit service flows.
                 </p>
-              </div>
-              <div className="skill-chips-row">
-                <span className="skill-chip">KYC Procedures</span>
-                <span className="skill-chip">AML Compliance</span>
-                <span className="skill-chip">Core Banking</span>
-                <span className="skill-chip">Retail Operations</span>
-                <span className="skill-chip">Customer Due Diligence</span>
+                <div className="skill-chips-row">
+                  <span className="skill-chip">KYC Procedures</span>
+                  <span className="skill-chip">AML Compliance</span>
+                  <span className="skill-chip">Core Banking</span>
+                  <span className="skill-chip">Retail Operations</span>
+                  <span className="skill-chip">Customer Due Diligence</span>
+                </div>
               </div>
             </div>
 
-            <div className="skill-capability-card">
-              <div>
-                <div className="skill-card-top">
-                  <span className="skill-number">04</span>
-                  <span className="skill-category-tag">BUSINESS SOFTWARE</span>
-                </div>
-                <h3>Productivity & ERP Tools</h3>
+            <div className="skill-row-item">
+              <span className="skill-row-num">04</span>
+              <div className="skill-row-left">
+                <h3>Productivity Tools</h3>
+                <span className="skill-row-category">BUSINESS SOFTWARE</span>
+              </div>
+              <div className="skill-row-right">
                 <p>
                   Enterprise software operations for corporate communication, accounting bookkeeping, and executive stakeholder reporting.
                 </p>
-              </div>
-              <div className="skill-chips-row">
-                <span className="skill-chip">Tally ERP</span>
-                <span className="skill-chip">PowerPoint Presentation</span>
-                <span className="skill-chip">MS Word</span>
-                <span className="skill-chip">Executive Reporting</span>
+                <div className="skill-chips-row">
+                  <span className="skill-chip">Tally ERP</span>
+                  <span className="skill-chip">PowerPoint Presentation</span>
+                  <span className="skill-chip">MS Word</span>
+                  <span className="skill-chip">Executive Reporting</span>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ================= PROJECTS: EDITORIAL CASE STUDY CARDS ================= */}
+        {/* ================= PROJECTS: EDITORIAL CASE STUDY CARDS (WHERE CARDS SHINE!) ================= */}
         <section id="projects" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 04 / RECENT WORK ]</span>
@@ -577,7 +533,7 @@ function App() {
           </div>
         </section>
 
-        {/* ================= CERTIFICATIONS & CREDENTIALS CARDS ================= */}
+        {/* ================= CERTIFICATIONS & CREDENTIALS ================= */}
         <section id="certifications" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 05 / VERIFIED CREDENTIALS ]</span>
@@ -646,7 +602,7 @@ function App() {
           </div>
         </section>
 
-        {/* ================= RESUME DOCUMENTATION CARDS ================= */}
+        {/* ================= RESUME DOCUMENTATION STRIP ================= */}
         <section id="resume" className="section-wrapper">
           <div className="fragment-reveal">
             <span className="section-meta-tag">[ 06 / CURRICULUM VITAE ]</span>
@@ -656,43 +612,32 @@ function App() {
             </p>
           </div>
 
-          <div className="resume-cards-grid fragment-reveal stagger-1">
-            <div className="resume-download-card">
-              <div className="resume-card-left">
-                <span className="resume-format-tag">[ PDF · ATS COMPLIANT ]</span>
-                <h3>Standard Corporate Resume</h3>
-                <p>
-                  Optimized for institutional applicant tracking systems, corporate recruiters, and BFSI talent acquisition.
-                </p>
-              </div>
+          <div className="resume-strip-wrapper fragment-reveal stagger-1">
+            <div className="resume-strip-info">
+              <h3>Official Curriculum Vitae</h3>
+              <p>
+                Available in both ATS-compliant format for corporate recruiters and an Executive format featuring full verified credentials.
+              </p>
+            </div>
 
+            <div className="resume-strip-actions">
               <a
                 href="/resume-no-photo.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="resume-card-btn"
+                className="btn-fragment-primary"
               >
-                <span>View PDF</span>
+                <span>ATS Resume (PDF)</span>
                 <span>↗</span>
               </a>
-            </div>
-
-            <div className="resume-download-card">
-              <div className="resume-card-left">
-                <span className="resume-format-tag">[ PDF · WITH HEADSHOT ]</span>
-                <h3>Executive Resume with Photo</h3>
-                <p>
-                  Comprehensive layout featuring verified credentials and professional headshot for direct HR presentation.
-                </p>
-              </div>
 
               <a
                 href="/resume-with-photo.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="resume-card-btn"
+                className="btn-fragment-secondary"
               >
-                <span>View PDF</span>
+                <span>Executive Resume</span>
                 <span>↗</span>
               </a>
             </div>
@@ -710,65 +655,35 @@ function App() {
             <p className="contact-subtext">
               Open to discussions regarding MBA summer internships, banking roles, corporate finance analyst positions, and academic collaborations.
             </p>
-          </div>
 
-          <div className="contact-cards-bento fragment-reveal stagger-1">
-            <div className="contact-bento-card">
-              <div>
-                <div className="contact-bento-top">
-                  <span className="section-meta-tag">[ DIRECT INQUIRY ]</span>
-                  <span>✉</span>
-                </div>
-                <h4>Institutional Email</h4>
-                <p>dhananjaya.meher@ibsindia.org</p>
-              </div>
-              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                <a
-                  href="mailto:dhananjaya.meher@ibsindia.org"
-                  className="btn-contact-action primary"
-                >
-                  Send Email ↗
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  className="btn-contact-action secondary"
-                >
-                  {copiedEmail ? "✓ Copied!" : "Copy Address"}
-                </button>
-              </div>
-            </div>
+            <div className="contact-actions-row">
+              <a
+                href="mailto:dhananjaya.meher@ibsindia.org"
+                className="btn-contact-action primary"
+              >
+                <span>Send Email</span>
+                <span>↗</span>
+              </a>
 
-            <div className="contact-bento-card">
-              <div>
-                <div className="contact-bento-top">
-                  <span className="section-meta-tag">[ PROFESSIONAL NETWORK ]</span>
-                  <span>in</span>
-                </div>
-                <h4>LinkedIn Profile</h4>
-                <p>Connect for professional networking, BFSI discourse, and industry updates.</p>
-              </div>
+              <button
+                onClick={handleCopyEmail}
+                className="btn-contact-action secondary"
+              >
+                <span>{copiedEmail ? "✓ Copied Address!" : "Copy Address"}</span>
+              </button>
+
               <a
                 href="https://www.linkedin.com/in/dhananjaya-meher"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-contact-action secondary"
               >
-                View LinkedIn ↗
+                <span>LinkedIn Profile ↗</span>
               </a>
-            </div>
 
-            <div className="contact-bento-card">
-              <div>
-                <div className="contact-bento-top">
-                  <span className="section-meta-tag">[ BASE LOCATION ]</span>
-                  <span>📍</span>
-                </div>
-                <h4>Bengaluru, India</h4>
-                <p>Operating in Indian Standard Time (IST · GMT+5:30).</p>
-              </div>
-              <div className="nav-status-chip" style={{ width: "fit-content" }}>
+              <div className="nav-status-chip" style={{ marginLeft: "auto" }}>
                 <span className="pulse-dot"></span>
-                <span>{currentTime || "IST Live"}</span>
+                <span>Bengaluru · {currentTime || "IST"}</span>
               </div>
             </div>
           </div>
