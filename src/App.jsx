@@ -649,55 +649,87 @@ function Portfolio() {
             </button>
           </div>
 
-          <div className="projects-editorial-grid fragment-reveal stagger-1">
-            {filteredProjects.map((project) => (
-              <article key={project.id} className="project-case-card">
-                <div>
-                  <div className="project-card-meta">
-                    <span className="project-category-badge">{project.category}</span>
-                    <span className="project-index-num">[{project.id}]</span>
+          <div className="projects-stack-container fragment-reveal stagger-1">
+            {filteredProjects.map((project, index) => (
+              <article
+                key={project.id}
+                className="project-stack-card"
+                style={{ "--card-index": index }}
+              >
+                {/* Left: Content & Narrative */}
+                <div className="project-stack-content">
+                  <div>
+                    <div className="project-stack-meta">
+                      <span className="project-stack-category">{project.category}</span>
+                      <span className="project-stack-index">[{project.id}]</span>
+                    </div>
+
+                    <h3>{project.title}</h3>
+                    <p className="project-stack-desc">{project.description}</p>
+
+                    <div className="project-stack-metric">
+                      <span>⚡ {project.metric}</span>
+                    </div>
                   </div>
 
-                  {project.img && (
-                    <div style={{ marginBottom: "16px", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", background: "#0a0a0a" }}>
-                      <img
-                        src={project.img}
-                        alt={project.title}
-                        style={{ width: "100%", height: "160px", objectFit: "cover", display: "block" }}
-                        loading="lazy"
-                      />
+                  <div className="project-stack-footer">
+                    <div className="project-stack-tags">
+                      {project.tags.map((tag, idx) => (
+                        <span key={idx} className="project-stack-tag">
+                          #{tag}
+                        </span>
+                      ))}
                     </div>
-                  )}
 
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-
-                  <div className="project-metrics-box">
-                    <span>⚡ {project.metric}</span>
+                    {project.link || project.github ? (
+                      <a
+                        href={project.link || project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="project-stack-action-btn"
+                        title="Open Financial Model / Project Link"
+                      >
+                        <span>Open Project</span>
+                        <span>↗</span>
+                      </a>
+                    ) : (
+                      <span className="project-stack-action-btn static">
+                        <span>Case Study</span>
+                        <span>↗</span>
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                <div className="project-footer-row">
-                  <div className="project-tags-mini">
-                    {project.tags.map((tag, idx) => (
-                      <span key={idx} className="project-tag-item">
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                  {project.link || project.github ? (
-                    <a
-                      href={project.link || project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="project-arrow-link"
-                      title="Open Live Project / Sheet"
-                      style={{ textDecoration: "none" }}
-                    >
-                      ↗
-                    </a>
+                {/* Right: Media Preview / Graphic */}
+                <div className="project-stack-media">
+                  {project.img ? (
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      loading="lazy"
+                    />
                   ) : (
-                    <span className="project-arrow-link">↗</span>
+                    <div className="project-stack-graphic">
+                      <div className="graphic-top">
+                        <span className="graphic-chip">{project.category} ANALYSIS</span>
+                        <div className="graphic-dots">
+                          <span className="g-dot"></span>
+                          <span className="g-dot"></span>
+                          <span className="g-dot"></span>
+                        </div>
+                      </div>
+                      <div className="graphic-center">
+                        <div className="graphic-chart-bar" style={{ height: "45%" }}></div>
+                        <div className="graphic-chart-bar" style={{ height: "65%" }}></div>
+                        <div className="graphic-chart-bar active" style={{ height: "92%" }}></div>
+                        <div className="graphic-chart-bar" style={{ height: "55%" }}></div>
+                        <div className="graphic-chart-bar" style={{ height: "80%" }}></div>
+                      </div>
+                      <div className="graphic-bottom">
+                        <span className="graphic-label">VALUATION MODEL · SENSITIVITY FRAMEWORK</span>
+                      </div>
+                    </div>
                   )}
                 </div>
               </article>
