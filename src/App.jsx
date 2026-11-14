@@ -196,15 +196,15 @@ function Portfolio() {
         if (dbProjects && dbProjects.length > 0) {
           const mappedProjects = dbProjects.map((p, idx) => ({
             id: String(idx + 1).padStart(2, "0"),
-            category: (Array.isArray(p.TechStack) && p.TechStack[0] ? p.TechStack[0] : "PROJECT").toUpperCase(),
-            filterCategory: "all",
+            category: (Array.isArray(p.TechStack) && p.TechStack[0] ? p.TechStack[0] : "FINANCE").toUpperCase(),
+            filterCategory: "finance",
             title: p.Title || "Untitled Project",
             description: p.Description || "No description provided.",
             metric: Array.isArray(p.Features) && p.Features.length > 0
               ? p.Features.join(" · ")
               : Array.isArray(p.TechStack) && p.TechStack.length > 0
               ? p.TechStack.join(" · ")
-              : "Supabase Project",
+              : "Financial Analysis",
             tags: Array.isArray(p.TechStack) && p.TechStack.length > 0
               ? p.TechStack
               : ["Finance", "Analytics"],
@@ -212,7 +212,15 @@ function Portfolio() {
             github: p.Github,
             img: p.Img,
           }));
-          setProjectsList(mappedProjects);
+
+          const combined = [
+            ...mappedProjects,
+            ...defaultProjectsData.filter(
+              (dp) => !mappedProjects.some((mp) => mp.title.toLowerCase() === dp.title.toLowerCase())
+            ),
+          ].map((item, i) => ({ ...item, id: String(i + 1).padStart(2, "0") }));
+
+          setProjectsList(combined);
         }
 
         const { data: dbCerts } = await supabase
@@ -230,7 +238,7 @@ function Portfolio() {
               issuer: c.issuer || c.Issuer || "Accredited Body",
               date: c.year ? String(c.year) : "VERIFIED",
               domain: c.issuer || "Verified Credential",
-              description: `Credential validated in Supabase registry under ${c.issuer || "verified issuer"}.`,
+              description: `Official accreditation recorded in Supabase registry under ${c.issuer || "institution"}.`,
               fileUrl: c.Img,
               fileType: isPdf ? "pdf" : "image",
               verified: true,
@@ -650,6 +658,17 @@ function Portfolio() {
                     <span className="project-index-num">[{project.id}]</span>
                   </div>
 
+                  {project.img && (
+                    <div style={{ marginBottom: "16px", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.08)", background: "#0a0a0a" }}>
+                      <img
+                        src={project.img}
+                        alt={project.title}
+                        style={{ width: "100%", height: "160px", objectFit: "cover", display: "block" }}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
                   <h3>{project.title}</h3>
                   <p>{project.description}</p>
 
@@ -666,7 +685,20 @@ function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  <span className="project-arrow-link">↗</span>
+                  {project.link || project.github ? (
+                    <a
+                      href={project.link || project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="project-arrow-link"
+                      title="Open Live Project / Sheet"
+                      style={{ textDecoration: "none" }}
+                    >
+                      ↗
+                    </a>
+                  ) : (
+                    <span className="project-arrow-link">↗</span>
+                  )}
                 </div>
               </article>
             ))}

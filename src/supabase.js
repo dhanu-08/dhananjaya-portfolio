@@ -2,7 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl =
   import.meta.env.VITE_SUPABASE_URL || "https://ztphxtpongittevxtbta.supabase.co";
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseKey =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  "sb_publishable_YARh-wvGLnn7oYA3qy5LdA_uUaJvtfH";
 
 // Keep the public portfolio working even when the optional Supabase
 // environment variables are not available in a Vercel deployment.
