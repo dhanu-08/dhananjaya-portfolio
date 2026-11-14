@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from "react";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import Login from "./Pages/Login";
+import Dashboard from "./Pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { supabase } from "./supabase";
 import "./App.css";
 
-function App() {
+function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeProjectFilter, setActiveProjectFilter] = useState("all");
@@ -743,8 +748,22 @@ function App() {
               <span>DHANANJAYA MEHER</span>
             </div>
 
-            <div>
-              © {new Date().getFullYear()} · MBA Finance · IBS Business School Bengaluru
+            <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
+              <span>© {new Date().getFullYear()} · MBA Finance · IBS Business School Bengaluru</span>
+              <Link
+                to="/login"
+                style={{
+                  color: "var(--text-muted)",
+                  textDecoration: "none",
+                  fontSize: "11px",
+                  fontFamily: "var(--font-mono)",
+                  transition: "color 0.2s ease"
+                }}
+                onMouseEnter={(e) => (e.target.style.color = "#ffffff")}
+                onMouseLeave={(e) => (e.target.style.color = "var(--text-muted)")}
+              >
+                [ Admin Portal ↗ ]
+              </Link>
             </div>
 
             <a href="#home" className="back-to-top-btn">
@@ -843,4 +862,22 @@ function App() {
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Portfolio />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard/*"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
