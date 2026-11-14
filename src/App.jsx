@@ -241,7 +241,7 @@ function App() {
             <div className="about-profile-card">
               <div className="profile-img-wrapper">
                 <img
-                  src="/profile.png"
+                  src="./profile.png"
                   alt="Dhananjaya Meher"
                   className="profile-img"
                 />
@@ -622,7 +622,7 @@ function App() {
 
             <div className="resume-strip-actions">
               <a
-                href="/resume-no-photo.pdf"
+                href="./resume-no-photo.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-fragment-primary"
@@ -632,7 +632,7 @@ function App() {
               </a>
 
               <a
-                href="/resume-with-photo.pdf"
+                href="./resume-with-photo.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-fragment-secondary"

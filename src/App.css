@@ -506,7 +506,7 @@ button {
 
 .about-editorial-grid {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 300px 1fr;
   gap: 56px;
   align-items: start;
 }
@@ -515,8 +515,8 @@ button {
   background: var(--bg-card);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-card);
-  border-radius: 20px;
-  padding: 24px;
+  border-radius: 22px;
+  padding: 20px;
   text-align: center;
   transition: all 0.35s var(--ease-framer);
 }
@@ -525,42 +525,51 @@ button {
   border-color: var(--border-card-hover);
   transform: translateY(-4px);
   background: var(--bg-card-hover);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 }
 
 .profile-img-wrapper {
   position: relative;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  padding: 4px;
-  background: linear-gradient(135deg, rgba(201, 208, 210, 0.4), rgba(255, 255, 255, 0.05));
-  margin: 0 auto 16px;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0a0a0c;
+  border: 1px solid var(--border-card);
+  margin-bottom: 18px;
 }
 
 .profile-img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
+  object-position: center 20%;
   display: block;
+  transition: transform 0.6s var(--ease-framer);
+}
+
+.about-profile-card:hover .profile-img {
+  transform: scale(1.03);
 }
 
 .profile-status-badge {
   position: absolute;
-  bottom: 0px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(10, 10, 14, 0.95);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(10, 10, 14, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.35);
   border-radius: 9999px;
-  padding: 3px 10px;
+  padding: 5px 12px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   color: #34d399;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
 }
 
 .profile-info-footer h4 {
