@@ -84,7 +84,7 @@ function Portfolio() {
     });
   };
 
-  const projectsData = [
+  const defaultProjectsData = [
     {
       id: "01",
       category: "FINANCE",
@@ -127,12 +127,7 @@ function Portfolio() {
     },
   ];
 
-  const filteredProjects =
-    activeProjectFilter === "all"
-      ? projectsData
-      : projectsData.filter((p) => p.filterCategory === activeProjectFilter);
-
-  const certificationsData = [
+  const defaultCertificationsData = [
     {
       id: "01",
       number: "01",
@@ -186,6 +181,75 @@ function Portfolio() {
       verified: true,
     },
   ];
+
+  const [projectsList, setProjectsList] = useState(defaultProjectsData);
+  const [certificationsList, setCertificationsList] = useState(defaultCertificationsData);
+
+  useEffect(() => {
+    async function loadSupabaseData() {
+      try {
+        const { data: dbProjects } = await supabase
+          .from("projects")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (dbProjects && dbProjects.length > 0) {
+          const mappedProjects = dbProjects.map((p, idx) => ({
+            id: String(idx + 1).padStart(2, "0"),
+            category: (Array.isArray(p.TechStack) && p.TechStack[0] ? p.TechStack[0] : "PROJECT").toUpperCase(),
+            filterCategory: "all",
+            title: p.Title || "Untitled Project",
+            description: p.Description || "No description provided.",
+            metric: Array.isArray(p.Features) && p.Features.length > 0
+              ? p.Features.join(" · ")
+              : Array.isArray(p.TechStack) && p.TechStack.length > 0
+              ? p.TechStack.join(" · ")
+              : "Supabase Project",
+            tags: Array.isArray(p.TechStack) && p.TechStack.length > 0
+              ? p.TechStack
+              : ["Finance", "Analytics"],
+            link: p.Link,
+            github: p.Github,
+            img: p.Img,
+          }));
+          setProjectsList(mappedProjects);
+        }
+
+        const { data: dbCerts } = await supabase
+          .from("certificates")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (dbCerts && dbCerts.length > 0) {
+          const mappedCerts = dbCerts.map((c, idx) => {
+            const isPdf = c.Img && c.Img.toLowerCase().includes(".pdf");
+            return {
+              id: String(idx + 1).padStart(2, "0"),
+              number: String(idx + 1).padStart(2, "0"),
+              title: c.title || c.Title || "Official Certificate",
+              issuer: c.issuer || c.Issuer || "Accredited Body",
+              date: c.year ? String(c.year) : "VERIFIED",
+              domain: c.issuer || "Verified Credential",
+              description: `Credential validated in Supabase registry under ${c.issuer || "verified issuer"}.`,
+              fileUrl: c.Img,
+              fileType: isPdf ? "pdf" : "image",
+              verified: true,
+            };
+          });
+          setCertificationsList(mappedCerts);
+        }
+      } catch (err) {
+        console.warn("Supabase fetch notice:", err);
+      }
+    }
+
+    loadSupabaseData();
+  }, []);
+
+  const filteredProjects =
+    activeProjectFilter === "all"
+      ? projectsList
+      : projectsList.filter((p) => p.filterCategory === activeProjectFilter);
 
   return (
     <div className="site-wrapper">
@@ -620,7 +684,7 @@ function Portfolio() {
           </div>
 
           <div className="certifications-cards-grid fragment-reveal stagger-1">
-            {certificationsData.map((cert) => (
+            {certificationsList.map((cert) => (
               <div
                 key={cert.id}
                 className="cert-card"
