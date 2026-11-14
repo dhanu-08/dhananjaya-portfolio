@@ -5,8 +5,29 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeProjectFilter, setActiveProjectFilter] = useState("all");
+  const [selectedCert, setSelectedCert] = useState(null);
   const [currentTime, setCurrentTime] = useState("");
   const heroRef = useRef(null);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setSelectedCert(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (selectedCert) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [selectedCert]);
 
   // Live IST Clock for Bengaluru
   useEffect(() => {
@@ -105,6 +126,61 @@ function App() {
     activeProjectFilter === "all"
       ? projectsData
       : projectsData.filter((p) => p.filterCategory === activeProjectFilter);
+
+  const certificationsData = [
+    {
+      id: "01",
+      number: "01",
+      title: "BFSI Certification",
+      issuer: "Physics Wallah",
+      date: "DEC 2025",
+      domain: "Banking & Financial Services",
+      description:
+        "Comprehensive qualification covering retail and commercial banking operations, credit underwriting, KYC/AML regulatory standards, and financial product structuring.",
+      fileUrl: "./certificates/bfsi-certificate.pdf",
+      fileType: "pdf",
+      verified: true,
+    },
+    {
+      id: "02",
+      number: "02",
+      title: "NISM – SEBI Investor Awareness",
+      issuer: "National Institute of Securities Markets (NISM)",
+      date: "JUN 2026",
+      domain: "Securities & Investment Markets",
+      description:
+        "Regulatory investor awareness and capital markets benchmark evaluating mutual fund mechanisms, risk-return dynamics, portfolio asset classes, and investor rights.",
+      fileUrl: "./certificates/nism-certificate.pdf",
+      fileType: "pdf",
+      verified: true,
+    },
+    {
+      id: "03",
+      number: "03",
+      title: "Bloomberg Financial Fundamentals",
+      issuer: "Bloomberg Professional Education",
+      date: "COMPLETED",
+      domain: "Market Concepts & Indicators",
+      description:
+        "Practical curriculum covering financial markets, economic indicators, currencies, fixed income securities, and equity valuation principles using Bloomberg concepts.",
+      fileUrl: "./certificates/bloomberg-certificate.jpg",
+      fileType: "image",
+      verified: true,
+    },
+    {
+      id: "04",
+      number: "04",
+      title: "Data Entry Operator Certification",
+      issuer: "EduBridge / Nirmaan Organization",
+      date: "JAN 2026",
+      domain: "Grade A · 83% Distinction",
+      description:
+        "Recognized vocational certification in rapid, accurate data digitization, statistical spreadsheet maintenance, database operations, and administrative data integrity.",
+      fileUrl: null,
+      fileType: "badge",
+      verified: true,
+    },
+  ];
 
   return (
     <div className="site-wrapper">
@@ -534,66 +610,44 @@ function App() {
             <span className="section-meta-tag">[ 05 / CERTIFICATIONS ]</span>
             <h2 className="section-title">Certifications & Accreditations</h2>
             <p className="section-desc">
-              Formal qualifications validated by recognized financial and regulatory bodies.
+              Formal qualifications validated by recognized financial and regulatory bodies. Click any card to preview credential.
             </p>
           </div>
 
           <div className="certifications-cards-grid fragment-reveal stagger-1">
-            <div className="cert-card">
-              <div>
-                <div className="cert-top-row">
-                  <span className="cert-number">01</span>
-                  <span className="cert-date-chip">DEC 2025</span>
+            {certificationsData.map((cert) => (
+              <div
+                key={cert.id}
+                className="cert-card"
+                onClick={() => setSelectedCert(cert)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setSelectedCert(cert);
+                  }
+                }}
+              >
+                <div>
+                  <div className="cert-top-row">
+                    <span className="cert-number">{cert.number}</span>
+                    <span className="cert-date-chip">{cert.date}</span>
+                  </div>
+                  <h3>{cert.title}</h3>
+                  <div className="cert-issuer">{cert.issuer}</div>
                 </div>
-                <h3>BFSI Certification</h3>
-                <div className="cert-issuer">Physics Wallah</div>
-              </div>
-              <div className="cert-badge-bottom">
-                <span>✓ Banking & Financial Services</span>
-              </div>
-            </div>
 
-            <div className="cert-card">
-              <div>
-                <div className="cert-top-row">
-                  <span className="cert-number">02</span>
-                  <span className="cert-date-chip">JUN 2026</span>
+                <div>
+                  <div className="cert-badge-bottom">
+                    <span>✓ {cert.domain}</span>
+                  </div>
+                  <div className="cert-card-cta">
+                    <span>Preview Certificate</span>
+                    <span>↗</span>
+                  </div>
                 </div>
-                <h3>NISM – SEBI Investor Awareness</h3>
-                <div className="cert-issuer">National Institute of Securities Markets (NISM)</div>
               </div>
-              <div className="cert-badge-bottom">
-                <span>✓ Securities & Investment Markets</span>
-              </div>
-            </div>
-
-            <div className="cert-card">
-              <div>
-                <div className="cert-top-row">
-                  <span className="cert-number">03</span>
-                  <span className="cert-date-chip">COMPLETED</span>
-                </div>
-                <h3>Bloomberg Financial Fundamentals</h3>
-                <div className="cert-issuer">Bloomberg Professional Education</div>
-              </div>
-              <div className="cert-badge-bottom">
-                <span>✓ Market Concepts & Indicators</span>
-              </div>
-            </div>
-
-            <div className="cert-card">
-              <div>
-                <div className="cert-top-row">
-                  <span className="cert-number">04</span>
-                  <span className="cert-date-chip">JAN 2026</span>
-                </div>
-                <h3>Data Entry Operator Certification</h3>
-                <div className="cert-issuer">EduBridge / Nirmaan Organization</div>
-              </div>
-              <div className="cert-badge-bottom">
-                <span>✓ Grade A · 83% Distinction</span>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -700,6 +754,91 @@ function App() {
           </div>
         </section>
       </main>
+
+      {/* ================= CERTIFICATE PREVIEW MODAL (LIGHTBOX) ================= */}
+      {selectedCert && (
+        <div
+          className="cert-modal-backdrop"
+          onClick={() => setSelectedCert(null)}
+        >
+          <div
+            className="cert-modal-box"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="cert-modal-header">
+              <div>
+                <div className="cert-modal-meta">
+                  [ VERIFIED CREDENTIAL · {selectedCert.number} ]
+                </div>
+                <h3 className="cert-modal-title">{selectedCert.title}</h3>
+                <div className="cert-modal-issuer">
+                  {selectedCert.issuer} · {selectedCert.date}
+                </div>
+              </div>
+              <button
+                className="cert-modal-close-btn"
+                onClick={() => setSelectedCert(null)}
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="cert-modal-body">
+              {selectedCert.fileType === "pdf" ? (
+                <iframe
+                  src={selectedCert.fileUrl}
+                  title={selectedCert.title}
+                  className="cert-preview-frame"
+                />
+              ) : selectedCert.fileType === "image" ? (
+                <img
+                  src={selectedCert.fileUrl}
+                  alt={selectedCert.title}
+                  className="cert-preview-image"
+                />
+              ) : (
+                <div className="cert-badge-details">
+                  <div className="cert-stamp-icon">✓</div>
+                  <h4>{selectedCert.title}</h4>
+                  <p>{selectedCert.description}</p>
+                  <div className="nav-status-chip" style={{ width: "fit-content", margin: "0 auto" }}>
+                    <span className="pulse-dot"></span>
+                    <span>{selectedCert.domain}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="cert-modal-footer">
+              <div className="cert-modal-footer-info">
+                <span>✓ Officially Verified Credential</span>
+              </div>
+
+              {selectedCert.fileUrl ? (
+                <a
+                  href={selectedCert.fileUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-fragment-primary"
+                  style={{ padding: "8px 18px", fontSize: "12px" }}
+                >
+                  <span>Open Full Document</span>
+                  <span>↗</span>
+                </a>
+              ) : (
+                <button
+                  onClick={() => setSelectedCert(null)}
+                  className="btn-fragment-secondary"
+                  style={{ padding: "8px 18px", fontSize: "12px" }}
+                >
+                  Close Preview
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
