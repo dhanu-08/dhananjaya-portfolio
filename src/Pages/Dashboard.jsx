@@ -25,17 +25,17 @@ import {
 
 const NAV_ITEMS = [
   {
-    to: "projects",
+    to: "/dashboard/projects",
     label: "Projects",
     icon: FolderGit2,
   },
   {
-    to: "certificates",
+    to: "/dashboard/certificates",
     label: "Certificates",
     icon: Award,
   },
   {
-    to: "comments",
+    to: "/dashboard/comments",
     label: "Comments",
     icon: MessageSquare,
   },
@@ -91,7 +91,10 @@ export default function Dashboard() {
         </p>
 
         {NAV_ITEMS.map(({ to, label, icon: Icon }) => {
-          const active = location.pathname.includes(to);
+          const active =
+            location.pathname === to ||
+            (to === "/dashboard/projects" &&
+              (location.pathname === "/dashboard" || location.pathname === "/dashboard/"));
 
           return (
             <Link
@@ -213,6 +216,16 @@ export default function Dashboard() {
             <Route
               path="comments"
               element={<Comments />}
+            />
+
+            <Route
+              path="projects/certificates"
+              element={<Navigate to="/dashboard/certificates" replace />}
+            />
+
+            <Route
+              path="*"
+              element={<Navigate to="projects" replace />}
             />
           </Routes>
         </main>
