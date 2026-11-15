@@ -137,8 +137,9 @@ function Portfolio() {
       domain: "Banking & Financial Services",
       description:
         "Comprehensive qualification covering retail and commercial banking operations, credit underwriting, KYC/AML regulatory standards, and financial product structuring.",
-      fileUrl: "./certificates/bfsi-certificate.pdf",
-      fileType: "pdf",
+      fileUrl:
+        "https://ztphxtpongittevxtbta.supabase.co/storage/v1/object/public/certificate-images/cert-1789824698061-7e25327a-b77a-48cd-b33f-787a5aef84f9.png",
+      fileType: "image",
       verified: true,
     },
     {
@@ -150,8 +151,9 @@ function Portfolio() {
       domain: "Securities & Investment Markets",
       description:
         "Regulatory investor awareness and capital markets benchmark evaluating mutual fund mechanisms, risk-return dynamics, portfolio asset classes, and investor rights.",
-      fileUrl: "./certificates/nism-certificate.pdf",
-      fileType: "pdf",
+      fileUrl:
+        "https://ztphxtpongittevxtbta.supabase.co/storage/v1/object/public/certificate-images/cert-1794328878089-SEBI.jpg",
+      fileType: "image",
       verified: true,
     },
     {
@@ -163,7 +165,8 @@ function Portfolio() {
       domain: "Market Concepts & Indicators",
       description:
         "Practical curriculum covering financial markets, economic indicators, currencies, fixed income securities, and equity valuation principles using Bloomberg concepts.",
-      fileUrl: "./certificates/bloomberg-certificate.jpg",
+      fileUrl:
+        "https://ztphxtpongittevxtbta.supabase.co/storage/v1/object/public/certificate-images/cert-1789926519951-download_page-0001.jpg",
       fileType: "image",
       verified: true,
     },
