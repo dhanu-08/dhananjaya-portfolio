@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../supabase";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -10,7 +10,7 @@ import {
   AlertCircle,
   X,
   ShieldCheck,
-  CheckCircle2,
+  Sparkles,
 } from "lucide-react";
 
 export default function Login() {
@@ -20,11 +20,21 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  // Listen for Visme Form events if submitted
+  useEffect(() => {
+    const handleVismeMessage = (event) => {
+      if (typeof event.data === "object" && (event.data?.type === "vismeForms:submitSuccess" || event.data?.type === "VISME_ADMIN_LOGIN")) {
+        setShowAdminModal(true);
+      }
+    };
+    window.addEventListener("message", handleVismeMessage);
+    return () => window.removeEventListener("message", handleVismeMessage);
+  }, []);
+
+  const handleManualLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setErrorMessage("Please enter both Admin Email and Password.");
@@ -59,10 +69,7 @@ export default function Login() {
         return;
       }
 
-      setLoginSuccess(true);
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 600);
+      navigate("/dashboard");
     } catch (err) {
       setErrorMessage(err?.message || "An unexpected error occurred. Please try again.");
       setLoading(false);
@@ -96,7 +103,6 @@ export default function Login() {
             fontSize: "13px",
             fontWeight: 500,
             maxWidth: "90vw",
-            animation: "bubblePop 0.3s ease",
           }}
         >
           <AlertCircle className="w-4 h-4 shrink-0 text-white" />
@@ -119,64 +125,6 @@ export default function Login() {
         </div>
       )}
 
-      {/* Loading Overlay */}
-      {loading && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 99999,
-            background: "rgba(0, 0, 0, 0.75)",
-            backdropFilter: "blur(14px)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "18px",
-            color: "#ffffff",
-          }}
-        >
-          {loginSuccess ? (
-            <>
-              <CheckCircle2 className="w-12 h-12 text-green-400 animate-bounce" />
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "14px",
-                  letterSpacing: "0.08em",
-                  color: "#86efac",
-                }}
-              >
-                ACCESS GRANTED. OPENING DASHBOARD...
-              </span>
-            </>
-          ) : (
-            <>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  border: "3.5px solid rgba(255, 255, 255, 0.15)",
-                  borderTopColor: "#f97316",
-                  borderRadius: "50%",
-                  animation: "spin 0.8s linear infinite",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: "13px",
-                  letterSpacing: "0.08em",
-                  color: "#fdba74",
-                }}
-              >
-                AUTHENTICATING ADMIN CREDENTIALS...
-              </span>
-            </>
-          )}
-        </div>
-      )}
-
       {/* Top Glass Navigation Controls */}
       <nav className="visme-glass-nav">
         <Link to="/" className="visme-glass-pill">
@@ -187,210 +135,25 @@ export default function Login() {
           <button
             onClick={() => setShowAdminModal(true)}
             className="visme-glass-pill highlight"
-            title="Open Direct Admin Credentials Modal"
+            title="Sign in with Supabase Admin Credentials"
           >
             <ShieldCheck className="w-4 h-4" />
-            <span>Direct Sign In</span>
+            <span>Sign In to Dashboard</span>
           </button>
         </div>
       </nav>
 
-      {/* Main Glass Frame Containing Exact Visme 3D Animated Form with Login Overlay */}
-      <div className="visme-form-glass-card" style={{ position: "relative" }}>
-        {/* The Live 3D Animated Visme Character */}
+      {/* Main Glass Frame Containing Exact Visme 3D Animated Form */}
+      <div className="visme-form-glass-card">
         <iframe
           src="https://forms.visme.co/formsPlayer/_embed/vm881x4j-workshop-registration-form?fullPage=true&embedIframeId=1"
           title="3D Animated Character Form"
           className="visme-iframe-container"
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            display: "block",
-            pointerEvents: "auto",
-          }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
-
-        {/* Seamless Overlay: Replaces 'Register Now' & workshop inputs with 'Login' & Supabase Admin fields */}
-        <div
-          className="visme-login-overlay"
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            width: "55%",
-            height: "100%",
-            background: "#ea793f",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "30px 40px",
-            zIndex: 25,
-            boxSizing: "border-box",
-          }}
-        >
-          <div style={{ width: "100%", maxWidth: "380px" }}>
-            {/* Header: Exact styled 'Login' title matching the reel style */}
-            <div style={{ textAlign: "center", marginBottom: "26px" }}>
-              <h1
-                style={{
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontSize: "40px",
-                  fontWeight: 500,
-                  color: "#ffffff",
-                  letterSpacing: "0.02em",
-                  margin: "0 0 10px 0",
-                  textShadow: "0 2px 4px rgba(0,0,0,0.15)",
-                }}
-              >
-                Login
-              </h1>
-
-              <p
-                style={{
-                  fontFamily: "var(--font-body, system-ui)",
-                  fontSize: "13.5px",
-                  color: "rgba(255, 255, 255, 0.95)",
-                  lineHeight: 1.45,
-                  margin: 0,
-                }}
-              >
-                Fill in your admin credentials to enter verified dashboard
-              </p>
-            </div>
-
-            {/* Login Form: Styled identically to Visme's rounded input fields */}
-            <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {/* Email Field */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  background: "#ededee",
-                  borderRadius: "10px",
-                  padding: "4px 14px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.12)",
-                }}
-              >
-                <Mail className="w-5 h-5 shrink-0" style={{ color: "#ea793f", marginRight: "12px" }} />
-                <input
-                  type="email"
-                  placeholder="Admin Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    background: "transparent",
-                    border: "none",
-                    outline: "none",
-                    fontFamily: "var(--font-body, system-ui)",
-                    fontSize: "15px",
-                    color: "#27272a",
-                    padding: "12px 0",
-                  }}
-                />
-              </div>
-
-              {/* Password Field */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  background: "#ededee",
-                  borderRadius: "10px",
-                  padding: "4px 14px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.12)",
-                }}
-              >
-                <Lock className="w-5 h-5 shrink-0" style={{ color: "#ea793f", marginRight: "12px" }} />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  style={{
-                    width: "100%",
-                    background: "transparent",
-                    border: "none",
-                    outline: "none",
-                    fontFamily: "var(--font-body, system-ui)",
-                    fontSize: "15px",
-                    color: "#27272a",
-                    padding: "12px 0",
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  style={{
-                    background: "transparent",
-                    border: "none",
-                    color: "#71717a",
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "4px",
-                  }}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-
-              {/* Submit Button: Matches the solid black 'NEXT' button from Visme */}
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  marginTop: "6px",
-                  padding: "14px 24px",
-                  borderRadius: "10px",
-                  border: "none",
-                  background: "#09090b",
-                  color: "#ffffff",
-                  fontFamily: "var(--font-body, system-ui)",
-                  fontSize: "15px",
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  boxShadow: "0 6px 16px rgba(0, 0, 0, 0.25)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "#18181b")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "#09090b")}
-              >
-                <span>LOGIN</span>
-                <LogIn className="w-4 h-4" />
-              </button>
-
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "8px",
-                  fontSize: "11px",
-                  letterSpacing: "0.04em",
-                  color: "rgba(255, 255, 255, 0.75)",
-                  textTransform: "uppercase",
-                  fontFamily: "var(--font-mono, monospace)",
-                }}
-              >
-                Dhananjaya Portfolio Admin Portal
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
 
-      {/* Fallback Direct Credentials Modal */}
+      {/* Direct Supabase Admin Credentials Modal */}
       {showAdminModal && (
         <div
           className="auth-modal-backdrop"
@@ -426,6 +189,33 @@ export default function Login() {
 
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: "24px" }}>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "6px 14px",
+                  borderRadius: "9999px",
+                  background: "rgba(239, 68, 68, 0.15)",
+                  border: "1px solid rgba(239, 68, 68, 0.3)",
+                  marginBottom: "12px",
+                }}
+              >
+                <Sparkles className="w-3.5 h-3.5" style={{ color: "#f87171" }} />
+                <span
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "11px",
+                    letterSpacing: "0.08em",
+                    color: "#fca5a5",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Admin Portal
+                </span>
+              </div>
+
               <h2
                 style={{
                   fontFamily: "var(--font-display)",
@@ -436,7 +226,7 @@ export default function Login() {
                   margin: "0 0 6px 0",
                 }}
               >
-                Direct Sign In
+                Dashboard Sign In
               </h2>
 
               <p
@@ -447,12 +237,12 @@ export default function Login() {
                   margin: 0,
                 }}
               >
-                Enter your Supabase email and password
+                Enter your Supabase admin credentials to access your dashboard
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <form onSubmit={handleManualLogin} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <div>
                 <label
                   style={{
