@@ -1631,3 +1631,249 @@ button {
     justify-content: center;
   }
 }
+
+/* =========================================================
+   ANIMATED GLASS LOGIN PORTAL (FRAGMENT & 3D CHARACTER)
+========================================================= */
+
+.login-glass-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 15%, #181329 0%, #08080d 55%, #020204 100%);
+  padding: 40px 20px;
+}
+
+/* Ambient animated light orbs */
+.glass-ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.5;
+  will-change: transform;
+}
+
+.glass-orb-1 {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #f97316 0%, #ef4444 60%, transparent 80%);
+  top: 10%;
+  left: 20%;
+  animation: orbDrift1 16s ease-in-out infinite alternate;
+}
+
+.glass-orb-2 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, #6366f1 0%, #8b5cf6 60%, transparent 80%);
+  bottom: 10%;
+  right: 15%;
+  animation: orbDrift2 18s ease-in-out infinite alternate;
+}
+
+.glass-orb-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #38bdf8 0%, #06b6d4 60%, transparent 80%);
+  top: 60%;
+  left: 8%;
+  animation: orbDrift3 22s ease-in-out infinite alternate;
+}
+
+@keyframes orbDrift1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.12); }
+  100% { transform: translate(-30px, 40px) scale(0.92); }
+}
+
+@keyframes orbDrift2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 40px) scale(1.15); }
+  100% { transform: translate(30px, -50px) scale(0.88); }
+}
+
+@keyframes orbDrift3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(60px, 50px) scale(1.2); }
+  100% { transform: translate(-40px, -30px) scale(1); }
+}
+
+/* Stage container holding the character and the glass card */
+.login-stage-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+/* The 3D Leaning Character Wrapper */
+.character-side-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: -48px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.character-figure {
+  width: 250px;
+  max-width: 35vw;
+  height: auto;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.85));
+  animation: characterFloat 4.5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+  user-select: none;
+}
+
+.character-shadow {
+  width: 150px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+  margin-top: -12px;
+  animation: shadowPulse 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes characterFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.4deg); }
+  100% { transform: translateY(-3px) rotate(-0.4deg); }
+}
+
+@keyframes shadowPulse {
+  0% { transform: scale(1); opacity: 0.75; }
+  50% { transform: scale(0.85); opacity: 0.45; }
+  100% { transform: scale(0.95); opacity: 0.65; }
+}
+
+/* Glass Card */
+.login-glass-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  padding: 44px 38px;
+  box-shadow: 
+    0 30px 90px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  z-index: 15;
+}
+
+.login-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+}
+
+/* Glass Form Elements */
+.glass-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  transition: all 0.25s var(--ease-framer);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glass-input-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    0 0 25px rgba(239, 68, 68, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 14px 16px;
+}
+
+.glass-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.glass-action-btn {
+  width: 100%;
+  position: relative;
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #ef4444 0%, #ea580c 50%, #f97316 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 25px -5px rgba(239, 68, 68, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.glass-action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 16px 32px -6px rgba(239, 68, 68, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #f87171 0%, #f97316 100%);
+}
+
+.glass-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .login-stage-container {
+    flex-direction: column;
+  }
+  
+  .character-side-wrapper {
+    margin-right: 0;
+    margin-bottom: -32px;
+    z-index: 20;
+  }
+  
+  .character-figure {
+    width: 180px;
+    max-width: 50vw;
+  }
+
+  .login-glass-card {
+    padding: 34px 24px;
+  }
+}

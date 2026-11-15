@@ -2,198 +2,284 @@ import { useState } from "react";
 import { supabase } from "../supabase";
 import { useNavigate, Link } from "react-router-dom";
 import {
-  Mail,
+  User,
   Lock,
   LogIn,
   Sparkles,
   Eye,
   EyeOff,
+  AlertCircle,
 } from "lucide-react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] =
-    useState("");
-  const [loading, setLoading] =
-    useState(false);
-  const [showPassword, setShowPassword] =
-    useState(false);
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
 
-    const { data, error } =
-      await supabase.auth.signInWithPassword({
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-    if (error) {
-      alert(error.message);
-      setLoading(false);
-      return;
-    }
+      if (error) {
+        setErrorMessage(error.message);
+        setLoading(false);
+        return;
+      }
 
-    const { data: profile } =
-      await supabase
+      const { data: profile } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", data.user.id)
         .single();
 
-    if (profile?.role !== "admin") {
-      alert("Access denied");
+      if (profile?.role !== "admin") {
+        setErrorMessage("Access denied: You must have an administrator account.");
+        await supabase.auth.signOut();
+        setLoading(false);
+        return;
+      }
 
-      await supabase.auth.signOut();
-
+      navigate("/dashboard");
+    } catch (err) {
+      setErrorMessage(err?.message || "An unexpected error occurred. Please try again.");
       setLoading(false);
-      return;
     }
-
-    navigate("/dashboard");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-700" />
+    <div className="login-glass-page">
+      {/* Background Animated Ambient Gradient Orbs */}
+      <div className="glass-ambient-orb glass-orb-1" />
+      <div className="glass-ambient-orb glass-orb-2" />
+      <div className="glass-ambient-orb glass-orb-3" />
 
-          <div className="relative bg-white/5 backdrop-blur-xl border border-white/15 rounded-2xl p-8 space-y-7">
+      {/* Main Stage with Character Leaning on Glass Card */}
+      <div className="login-stage-container">
+        
+        {/* Animated 3D Character Leaning on Card */}
+        <div className="character-side-wrapper">
+          <img
+            src="./leaning-character.png"
+            alt="Admin Assistant"
+            className="character-figure"
+          />
+          <div className="character-shadow" />
+        </div>
 
-            {/* Header */}
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/25">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-
-                <span className="text-indigo-300 text-xs font-medium">
-                  Admin Portal
-                </span>
-              </div>
-
-              <h1 className="text-3xl font-bold text-white">
-                Welcome Back
-              </h1>
-
-              <p className="text-gray-400 text-sm">
-                Sign in to manage your portfolio
-              </p>
+        {/* Frosted Glass Login Card */}
+        <div className="login-glass-card">
+          {/* Header */}
+          <div style={{ textAlign: "center", marginBottom: "28px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                padding: "6px 14px",
+                borderRadius: "9999px",
+                background: "rgba(239, 68, 68, 0.12)",
+                border: "1px solid rgba(239, 68, 68, 0.25)",
+                marginBottom: "14px",
+              }}
+            >
+              <Sparkles className="w-3.5 h-3.5" style={{ color: "#f87171" }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  letterSpacing: "0.08em",
+                  color: "#fca5a5",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                }}
+              >
+                Admin Portal
+              </span>
             </div>
 
-            {/* Form */}
-            <form
-              onSubmit={handleLogin}
-              className="space-y-4"
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "28px",
+                fontWeight: 700,
+                color: "#ffffff",
+                letterSpacing: "-0.02em",
+                margin: "0 0 8px 0",
+              }}
             >
-              {/* Email */}
-              <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 uppercase tracking-wider">
-                  Email
-                </label>
+              Sign In Now
+            </h1>
 
-                <div className="flex items-center bg-white/8 border border-white/15 rounded-xl overflow-hidden focus-within:border-indigo-500/60 transition-colors">
-                  <Mail className="w-4 h-4 text-gray-500 ml-4 shrink-0" />
-
-                  <input
-                    type="email"
-                    placeholder="admin@example.com"
-                    value={email}
-                    onChange={(e) =>
-                      setEmail(e.target.value)
-                    }
-                    required
-                    className="w-full bg-transparent px-3 py-3 text-gray-100 placeholder-gray-500 text-sm outline-none"
-                  />
-                </div>
-              </div>
-
-              {/* Password */}
-              <div className="space-y-1.5">
-                <label className="text-xs text-gray-400 uppercase tracking-wider">
-                  Password
-                </label>
-
-                <div className="flex items-center bg-white/8 border border-white/15 rounded-xl overflow-hidden focus-within:border-indigo-500/60 transition-colors">
-                  <Lock className="w-4 h-4 text-gray-500 ml-4 shrink-0" />
-
-                  <input
-                    type={
-                      showPassword
-                        ? "text"
-                        : "password"
-                    }
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) =>
-                      setPassword(
-                        e.target.value
-                      )
-                    }
-                    required
-                    className="w-full bg-transparent px-3 py-3 text-gray-100 placeholder-gray-500 text-sm outline-none"
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setShowPassword(
-                        (prev) => !prev
-                      )
-                    }
-                    className="mr-4 shrink-0 text-gray-500 hover:text-gray-300 transition-colors"
-                    aria-label={
-                      showPassword
-                        ? "Hide password"
-                        : "Show password"
-                    }
-                  >
-                    {showPassword ? (
-                      <EyeOff className="w-4 h-4" />
-                    ) : (
-                      <Eye className="w-4 h-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Sign In Button */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="relative group/btn w-full mt-1"
-              >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4f52c9] to-[#8644c5] rounded-xl opacity-70 blur group-hover/btn:opacity-100 transition duration-300" />
-
-                <div className="relative h-11 bg-[#030014] rounded-xl border border-white/10 flex items-center justify-center gap-2 overflow-hidden">
-                  <div className="absolute inset-0 scale-x-0 group-hover/btn:scale-x-100 origin-left transition-transform duration-500 bg-gradient-to-r from-[#4f52c9]/20 to-[#8644c5]/20" />
-
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <span className="relative text-sm font-medium text-white">
-                        Sign In
-                      </span>
-
-                      <LogIn className="relative w-4 h-4 text-white group-hover/btn:translate-x-1 transition-transform duration-300" />
-                    </>
-                  )}
-                </div>
-              </button>
-
-              <div className="text-center mt-5">
-                <Link
-                  to="/"
-                  className="text-xs text-gray-400 hover:text-white transition-colors duration-200"
-                >
-                  ← Return to Portfolio
-                </Link>
-              </div>
-            </form>
+            <p
+              style={{
+                fontSize: "13.5px",
+                color: "rgba(255, 255, 255, 0.6)",
+                lineHeight: 1.5,
+                margin: 0,
+              }}
+            >
+              Enter your credentials to manage verified portfolio assets
+            </p>
           </div>
+
+          {/* Error Message Toast */}
+          {errorMessage && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "12px 14px",
+                borderRadius: "12px",
+                background: "rgba(239, 68, 68, 0.15)",
+                border: "1px solid rgba(239, 68, 68, 0.3)",
+                color: "#fca5a5",
+                fontSize: "12.5px",
+                marginBottom: "20px",
+              }}
+            >
+              <AlertCircle className="w-4 h-4 shrink-0" style={{ color: "#ef4444" }} />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {/* Form */}
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+            
+            {/* Email Field */}
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "rgba(255, 255, 255, 0.55)",
+                  marginBottom: "8px",
+                }}
+              >
+                Admin Email
+              </label>
+
+              <div className="glass-input-wrapper">
+                <User
+                  className="w-4 h-4 shrink-0"
+                  style={{ marginLeft: "14px", color: "rgba(255, 255, 255, 0.45)" }}
+                />
+                <input
+                  type="email"
+                  placeholder="admin@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="glass-input-field"
+                />
+              </div>
+            </div>
+
+            {/* Password Field */}
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "11px",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "rgba(255, 255, 255, 0.55)",
+                  marginBottom: "8px",
+                }}
+              >
+                Password
+              </label>
+
+              <div className="glass-input-wrapper">
+                <Lock
+                  className="w-4 h-4 shrink-0"
+                  style={{ marginLeft: "14px", color: "rgba(255, 255, 255, 0.45)" }}
+                />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="glass-input-field"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    marginRight: "14px",
+                    color: "rgba(255, 255, 255, 0.45)",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Action Next / Sign In Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="glass-action-btn"
+              style={{ marginTop: "6px" }}
+            >
+              {loading ? (
+                <div
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    border: "2px solid rgba(255,255,255,0.3)",
+                    borderTopColor: "#ffffff",
+                    borderRadius: "50%",
+                    animation: "spin 0.8s linear infinite",
+                  }}
+                />
+              ) : (
+                <>
+                  <span>NEXT</span>
+                  <LogIn className="w-4 h-4" />
+                </>
+              )}
+            </button>
+
+            {/* Back to Portfolio Link */}
+            <div style={{ textAlign: "center", marginTop: "12px" }}>
+              <Link
+                to="/"
+                style={{
+                  fontSize: "12.5px",
+                  color: "rgba(255, 255, 255, 0.5)",
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                onMouseEnter={(e) => (e.target.style.color = "#ffffff")}
+                onMouseLeave={(e) => (e.target.style.color = "rgba(255, 255, 255, 0.5)")}
+              >
+                ← Return to Portfolio
+              </Link>
+            </div>
+          </form>
         </div>
       </div>
     </div>
