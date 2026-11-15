@@ -17,6 +17,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [focusedField, setFocusedField] = useState(null);
 
   const navigate = useNavigate();
 
@@ -57,6 +58,31 @@ export default function Login() {
     }
   };
 
+  const characterClass = loading
+    ? "character-figure celebrating"
+    : focusedField === "password"
+    ? "character-figure shy"
+    : focusedField === "email"
+    ? "character-figure watching"
+    : "character-figure";
+
+  let bubbleText = "Welcome back, Dhanu!";
+  let bubbleEmoji = "✨";
+
+  if (loading) {
+    bubbleText = "Authenticating...";
+    bubbleEmoji = "🚀";
+  } else if (focusedField === "email") {
+    bubbleText = "Enter admin email";
+    bubbleEmoji = "👀";
+  } else if (focusedField === "password") {
+    bubbleText = "Looking away, secret!";
+    bubbleEmoji = "🙈";
+  } else if (errorMessage) {
+    bubbleText = "Check your password";
+    bubbleEmoji = "⚠️";
+  }
+
   return (
     <div className="login-glass-page">
       {/* Background Animated Ambient Gradient Orbs */}
@@ -69,10 +95,15 @@ export default function Login() {
         
         {/* Animated 3D Character Leaning on Card */}
         <div className="character-side-wrapper">
+          <div className="mascot-speech-bubble">
+            <span>{bubbleEmoji}</span>
+            <span>{bubbleText}</span>
+          </div>
+
           <img
             src="./leaning-character.png"
             alt="Admin Assistant"
-            className="character-figure"
+            className={characterClass}
           />
           <div className="character-shadow" />
         </div>
@@ -183,6 +214,8 @@ export default function Login() {
                   placeholder="admin@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => setFocusedField("email")}
+                  onBlur={() => setFocusedField(null)}
                   required
                   className="glass-input-field"
                 />
@@ -215,6 +248,8 @@ export default function Login() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onFocus={() => setFocusedField("password")}
+                  onBlur={() => setFocusedField(null)}
                   required
                   className="glass-input-field"
                 />
