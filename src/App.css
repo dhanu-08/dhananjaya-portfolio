@@ -1735,6 +1735,26 @@ button {
   background: transparent;
 }
 
+@media (max-width: 768px) {
+  .visme-form-glass-card {
+    height: auto;
+    min-height: 640px;
+    display: flex;
+    flex-direction: column;
+  }
+  .visme-iframe-container {
+    height: 280px !important;
+    flex-shrink: 0;
+  }
+  .visme-login-overlay {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 24px 18px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
 /* Modal Overlay for Supabase Direct Auth */
 .auth-modal-backdrop {
   position: fixed;
