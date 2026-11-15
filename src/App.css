@@ -1633,9 +1633,124 @@ button {
 }
 
 /* =========================================================
-   ANIMATED GLASS LOGIN PORTAL (FRAGMENT & 3D CHARACTER)
+   EXACT VISME 3D ANIMATED FORM WITH GLASS DESIGN
 ========================================================= */
 
+.visme-glass-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 15%, #181329 0%, #09090f 55%, #020204 100%);
+  padding: 24px 16px;
+}
+
+.visme-glass-nav {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  z-index: 50;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.visme-glass-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.visme-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.visme-glass-pill.highlight {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(249, 115, 22, 0.2));
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.visme-glass-pill.highlight:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.35), rgba(249, 115, 22, 0.35));
+  color: #ffffff;
+}
+
+.visme-form-glass-card {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  height: 640px;
+  max-height: 82vh;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 
+    0 30px 100px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  z-index: 20;
+}
+
+.visme-form-glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+  z-index: 30;
+}
+
+.visme-iframe-container {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: transparent;
+}
+
+/* Modal Overlay for Supabase Direct Auth */
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+  animation: fadeIn 0.25s ease;
+}
+
+/* Animated glass page styles */
 .login-glass-page {
   min-height: 100vh;
   min-height: 100dvh;
