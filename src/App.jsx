@@ -805,14 +805,9 @@ function Portfolio({ defaultSection }) {
                   <div className="cert-issuer">{cert.issuer}</div>
                 </div>
 
-                <div>
-                  <div className="cert-badge-bottom">
-                    <span>✓ {cert.domain}</span>
-                  </div>
-                  <div className="cert-card-cta">
-                    <span>Preview Certificate</span>
-                    <span>↗</span>
-                  </div>
+                <div className="cert-card-cta">
+                  <span>Preview Certificate</span>
+                  <span>↗</span>
                 </div>
               </div>
             ))}
