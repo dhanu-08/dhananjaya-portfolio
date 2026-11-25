@@ -101,7 +101,7 @@ function Portfolio({ defaultSection }) {
   // Copy email handler
   const handleCopyEmail = (e) => {
     e.preventDefault();
-    const email = "dhananjaya.meher@ibsindia.org";
+    const email = "dhananjayameherguddu@gmail.com";
     navigator.clipboard.writeText(email).then(() => {
       setCopiedEmail(true);
       setTimeout(() => setCopiedEmail(false), 2500);
@@ -863,7 +863,7 @@ function Portfolio({ defaultSection }) {
 
             <div className="contact-actions-row">
               <a
-                href="mailto:dhananjaya.meher@ibsindia.org"
+                href="mailto:dhananjayameherguddu@gmail.com"
                 className="btn-contact-action primary"
               >
                 <span>Send Email</span>
