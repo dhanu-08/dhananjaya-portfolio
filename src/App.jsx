@@ -878,7 +878,7 @@ function Portfolio({ defaultSection }) {
               </button>
 
               <a
-                href="https://www.linkedin.com/in/dhananjaya-meher"
+                href="https://www.linkedin.com/in/dhananjayameher/"
                 target="_blank"
                 rel="noreferrer"
                 className="btn-contact-action secondary"
