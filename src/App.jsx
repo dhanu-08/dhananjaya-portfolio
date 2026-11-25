@@ -428,18 +428,11 @@ function Portfolio({ defaultSection }) {
                   alt="Dhananjaya Meher"
                   className="profile-img"
                 />
-                <div className="profile-status-badge">
-                  <span className="pulse-dot"></span>
-                  <span>Verified Profile</span>
-                </div>
               </div>
 
               <div className="profile-info-footer">
                 <h4>Dhananjaya Meher</h4>
                 <p>MBA Finance · IBS Business School</p>
-                <div className="profile-location-chip">
-                  <span>📍 India</span>
-                </div>
               </div>
             </div>
 

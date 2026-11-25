@@ -544,8 +544,8 @@ button {
   height: 270px;
   max-width: 90vw;
   border-radius: 50%;
-  margin: 0 auto 24px auto;
-  overflow: visible;
+  margin: 0 auto 20px auto;
+  overflow: hidden;
 }
 
 .profile-img {
@@ -602,7 +602,7 @@ button {
 .profile-info-footer p {
   font-size: 14px;
   color: var(--text-secondary);
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .profile-location-chip {
