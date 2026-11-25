@@ -392,11 +392,15 @@ function Portfolio({ defaultSection }) {
         <section className="stats-section">
           <div className="stats-editorial-strip fragment-reveal">
             <div className="stat-col">
-              <div className="stat-value">04+</div>
+              <div className="stat-value">
+                {String(projectsList.length).padStart(2, "0")}+
+              </div>
               <div className="stat-label">Core Analytical Projects</div>
             </div>
             <div className="stat-col">
-              <div className="stat-value">04</div>
+              <div className="stat-value">
+                {String(certificationsList.length).padStart(2, "0")}+
+              </div>
               <div className="stat-label">Industry Certifications</div>
             </div>
             <div className="stat-col">
