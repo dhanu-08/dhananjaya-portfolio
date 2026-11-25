@@ -436,9 +436,9 @@ function Portfolio({ defaultSection }) {
 
               <div className="profile-info-footer">
                 <h4>Dhananjaya Meher</h4>
-                <p>MBA Finance · IBS Bengaluru</p>
+                <p>MBA Finance · IBS Business School</p>
                 <div className="profile-location-chip">
-                  <span>📍 Bengaluru, India</span>
+                  <span>📍 India</span>
                 </div>
               </div>
             </div>
