@@ -6,13 +6,37 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { supabase } from "./supabase";
 import "./App.css";
 
-function Portfolio() {
+function Portfolio({ defaultSection }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [activeProjectFilter, setActiveProjectFilter] = useState("all");
   const [selectedCert, setSelectedCert] = useState(null);
   const [currentTime, setCurrentTime] = useState("");
   const heroRef = useRef(null);
+
+  const scrollToSection = (e, sectionId) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (defaultSection) {
+      const timer = setTimeout(() => {
+        scrollToSection(null, defaultSection);
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [defaultSection]);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -267,22 +291,22 @@ function Portfolio() {
       {/* ================= FLOATING PILL NAVBAR ================= */}
       <header className="navbar-container">
         <nav className="navbar-pill">
-          <a href="#home" className="nav-brand">
+          <a href="#home" onClick={(e) => scrollToSection(e, "home")} className="nav-brand">
             <span className="brand-diamond"></span>
             <span>DM</span>
           </a>
 
           <div className="nav-center-menu">
-            <a href="#about" className="nav-link">About</a>
-            <a href="#journey" className="nav-link">Journey</a>
-            <a href="#skills" className="nav-link">Capabilities</a>
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#certifications" className="nav-link">Certifications</a>
-            <a href="#resume" className="nav-link">Resume</a>
+            <a href="#about" onClick={(e) => scrollToSection(e, "about")} className="nav-link">About</a>
+            <a href="#journey" onClick={(e) => scrollToSection(e, "journey")} className="nav-link">Journey</a>
+            <a href="#skills" onClick={(e) => scrollToSection(e, "skills")} className="nav-link">Capabilities</a>
+            <a href="#projects" onClick={(e) => scrollToSection(e, "projects")} className="nav-link">Projects</a>
+            <a href="#certifications" onClick={(e) => scrollToSection(e, "certifications")} className="nav-link">Certifications</a>
+            <a href="#resume" onClick={(e) => scrollToSection(e, "resume")} className="nav-link">Resume</a>
           </div>
 
           <div className="nav-right-actions">
-            <a href="#contact" className="nav-cta-btn">
+            <a href="#contact" onClick={(e) => scrollToSection(e, "contact")} className="nav-cta-btn">
               <span>Let's Talk</span>
               <span>→</span>
             </a>
@@ -299,13 +323,13 @@ function Portfolio() {
 
         {mobileMenuOpen && (
           <div className="mobile-nav-drawer">
-            <a href="#about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>About</a>
-            <a href="#journey" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Journey</a>
-            <a href="#skills" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Capabilities</a>
-            <a href="#projects" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Projects</a>
-            <a href="#certifications" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Certifications</a>
-            <a href="#resume" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Resume</a>
-            <a href="#contact" className="nav-cta-btn" onClick={() => setMobileMenuOpen(false)} style={{ justifyContent: "center", width: "100%" }}>
+            <a href="#about" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "about"); }}>About</a>
+            <a href="#journey" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "journey"); }}>Journey</a>
+            <a href="#skills" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "skills"); }}>Capabilities</a>
+            <a href="#projects" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "projects"); }}>Projects</a>
+            <a href="#certifications" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "certifications"); }}>Certifications</a>
+            <a href="#resume" className="nav-link" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "resume"); }}>Resume</a>
+            <a href="#contact" className="nav-cta-btn" onClick={(e) => { setMobileMenuOpen(false); scrollToSection(e, "contact"); }} style={{ justifyContent: "center", width: "100%" }}>
               <span>Let's Talk →</span>
             </a>
           </div>
@@ -343,12 +367,20 @@ function Portfolio() {
             </p>
 
             <div className="hero-button-row fragment-reveal stagger-3">
-              <a href="#projects" className="btn-fragment-primary">
+              <a
+                href="#projects"
+                onClick={(e) => scrollToSection(e, "projects")}
+                className="btn-fragment-primary"
+              >
                 <span>Explore Projects</span>
                 <span>→</span>
               </a>
 
-              <a href="#resume" className="btn-fragment-secondary">
+              <a
+                href="#resume"
+                onClick={(e) => scrollToSection(e, "resume")}
+                className="btn-fragment-secondary"
+              >
                 <span>View Verified Resume</span>
                 <span>↗</span>
               </a>
@@ -897,7 +929,11 @@ function Portfolio() {
               </Link>
             </div>
 
-            <a href="#home" className="back-to-top-btn">
+            <a
+              href="#home"
+              onClick={(e) => scrollToSection(e, "home")}
+              className="back-to-top-btn"
+            >
               <span>Back to top</span>
               <span>↑</span>
             </a>
@@ -998,6 +1034,11 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Portfolio />} />
+        <Route path="/resume" element={<Portfolio defaultSection="resume" />} />
+        <Route path="/projects" element={<Portfolio defaultSection="projects" />} />
+        <Route path="/certifications" element={<Portfolio defaultSection="certifications" />} />
+        <Route path="/about" element={<Portfolio defaultSection="about" />} />
+        <Route path="/contact" element={<Portfolio defaultSection="contact" />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/dashboard/*"

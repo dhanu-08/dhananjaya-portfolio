@@ -472,6 +472,18 @@ button {
   padding: 80px 24px;
   max-width: 1140px;
   margin: 0 auto;
+  scroll-margin-top: 90px;
+}
+
+#home,
+#about,
+#journey,
+#skills,
+#projects,
+#certifications,
+#resume,
+#contact {
+  scroll-margin-top: 90px;
 }
 
 .section-meta-tag {
